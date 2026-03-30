@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>ARAG v5 — Adaptive Recursive Attestation Graph · Full Demo</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="src/styles/main.css"/>
+</head>
+<body>
+
+<!-- AUTO DEMO OVERLAY -->
+<div class="auto-overlay" id="autoOverlay">
+  <div class="ao-hdr">
+    <span class="ao-title">⬛ AUTO DEMO RUNNING</span>
+    <button class="ao-close" onclick="stopAutoDemo()">✕</button>
+  </div>
+  <div class="ao-step" id="aoStep">Initializing…</div>
+  <div class="ao-prog" id="aoProg">Step 0 / 8</div>
+  <div class="ao-bar"><div class="ao-bar-fill" id="aoBarFill" style="width:0%"></div></div>
+</div>
+
+<nav class="nav">
+  <div class="nav-logo">
+    <span class="logo-a">ARAG</span>
+    <span class="logo-pipe">|</span>
+    <span class="logo-s">ADAPTIVE RECURSIVE ATTESTATION GRAPH · v5</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#overview"   class="nav-a on">Overview</a></li>
+    <li><a href="#dashboard"  class="nav-a">Dashboard</a></li>
+    <li><a href="#timeline"   class="nav-a">Timeline</a></li>
+    <li><a href="#multi"      class="nav-a">Multi-Inst</a></li>
+    <li><a href="#demo"       class="nav-a">Demo</a></li>
+    <li><a href="#attacks"    class="nav-a">Attacks</a></li>
+    <li><a href="#ftrace"     class="nav-a">Failure Trace</a></li>
+    <li><a href="#diagrams"   class="nav-a">Diagrams</a></li>
+    <li><a href="#chain"      class="nav-a">Chain</a></li>
+    <li><a href="#verify"     class="nav-a">Verify</a></li>
+    <li><a href="#silence"    class="nav-a">Silence</a></li>
+    <li><a href="#merkle"     class="nav-a">Merkle</a></li>
+  </ul>
+  <div class="nav-st">
+    <span class="st-dot" id="stDot"></span>
+    <span class="st-lbl" id="stLbl">TEE OFFLINE</span>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════ HERO ══════════════════════════════════ -->
+<section class="hero" id="overview">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-c">
+    <div class="hero-badge">Patent-Pending · VIT Chennai · SENSE Department</div>
+    <h1 class="hero-title">
+      <span class="h-arag">ARAG</span>
+      <span class="h-full">Adaptive Recursive Attestation Graph</span>
+    </h1>
+    <p class="hero-desc">Method and System for Generating Enclave-Attested Recursive Zero-Knowledge Proof Graphs for Privacy-Preserving Compliance Verification</p>
+    <div class="hero-auth">
+      <span class="auth-name">Amritha S</span><span class="auth-sep">·</span>
+      <span class="auth-name">Yugeshwaran P</span><span class="auth-sep">·</span>
+      <span class="auth-role">Dr. Sritama Roy (Supervisor)</span>
+    </div>
+    <div class="hero-btns">
+      <button class="btn btn-p" onclick="goto('demo')">▶ Launch Demo</button>
+      <button class="btn btn-g btn-sm" onclick="startAutoDemo()">⚡ Auto Demo</button>
+      <button class="btn btn-s btn-sm" onclick="goto('multi')">🏛 Multi-Institution</button>
+      <button class="btn btn-s btn-sm" onclick="goto('attacks')">🔴 Attacks</button>
+    </div>
+    <div class="hero-kpis">
+      <div class="kpi"><span class="kpi-v">O(1)</span><span class="kpi-l">Verify Time</span></div>
+      <div class="kpi"><span class="kpi-v">∞</span><span class="kpi-l">Chain Length</span></div>
+      <div class="kpi"><span class="kpi-v">8</span><span class="kpi-l">Novel Mechanisms</span></div>
+      <div class="kpi"><span class="kpi-v">0</span><span class="kpi-l">Data Disclosed</span></div>
+    </div>
+  </div>
+  <div class="hero-viz" id="heroViz"></div>
+</section>
+
+<!-- ══════════════════════════════════ MECHANISMS ══════════════════════════════════ -->
+<section class="mechs" id="mechanisms">
+  <div class="sec-hdr">
+    <div class="sec-tag">Unified System — Eight Interdependent Mechanisms</div>
+    <h2 class="sec-title">Not Optional. Not Independent. Required.</h2>
+    <p class="sec-desc">Each mechanism closes an emergent vulnerability that arises only when combining TEE + ZKP + recursive chaining. Remove any one and the system is exploitable.</p>
+  </div>
+  <div class="mech-grid" id="mechGrid"></div>
+</section>
+
+<!-- ══════════════════════════════════ DASHBOARD ══════════════════════════════════ -->
+<section class="dash-sec" id="dashboard">
+  <div class="sec-hdr">
+    <div class="sec-tag">Real-Time System Monitoring</div>
+    <h2 class="sec-title">Compliance &amp; Integrity Dashboard</h2>
+    <p class="sec-desc">Live metrics across chain integrity, compliance status, and system performance. Auto-updates with every epoch.</p>
+  </div>
+  <div class="dash-grid">
+    <div class="dash-card">
+      <div class="dc-hdr"><span class="dc-icon">🛡</span><span class="dc-title">Compliance Overview</span></div>
+      <div class="dc-body">
+        <div class="dc-metric"><span class="dcm-val" id="dTotalEpochs">0</span><span class="dcm-lbl">Total Epochs</span></div>
+        <div class="dc-metric"><span class="dcm-val green" id="dCompliant">0</span><span class="dcm-lbl">Compliant</span></div>
+        <div class="dc-metric"><span class="dcm-val red" id="dViolations">0</span><span class="dcm-lbl">Violations Detected</span></div>
+        <div class="dc-status" id="dCompStatus"><span class="ds-dot"></span>NO DATA</div>
+      </div>
+    </div>
+    <div class="dash-card">
+      <div class="dc-hdr"><span class="dc-icon">🔗</span><span class="dc-title">Chain Integrity</span></div>
+      <div class="dc-body">
+        <div class="dc-metric"><span class="dcm-val" id="dChainStatus">—</span><span class="dcm-lbl">Chain Status</span></div>
+        <div class="dc-metric"><span class="dcm-val" id="dLastVerified">—</span><span class="dcm-lbl">Last Verified Epoch</span></div>
+        <div class="dc-metric"><span class="dcm-val mono-sm" id="dLatestGH">—</span><span class="dcm-lbl">Latest GH_t</span></div>
+        <div class="dc-status" id="dIntegrityStatus"><span class="ds-dot"></span>AWAITING CHAIN</div>
+      </div>
+    </div>
+    <div class="dash-card">
+      <div class="dc-hdr"><span class="dc-icon">⚡</span><span class="dc-title">Performance</span></div>
+      <div class="dc-body">
+        <div class="dc-metric"><span class="dcm-val" id="dAvgVerify">—</span><span class="dcm-lbl">Avg Verify (ms)</span></div>
+        <div class="dc-metric"><span class="dcm-val">~1.8 KB</span><span class="dcm-lbl">Bundle Size</span></div>
+        <div class="dc-metric"><span class="dcm-val">192 B</span><span class="dcm-lbl">ZKP Size (Groth16)</span></div>
+        <div class="dc-status"><span class="ds-dot green"></span>O(1) VERIFICATION</div>
+      </div>
+    </div>
+    <div class="dash-card">
+      <div class="dc-hdr"><span class="dc-icon">🌐</span><span class="dc-title">Time Anchor (F3)</span></div>
+      <div class="dc-body">
+        <div class="dc-anchor-row"><span class="da-lbl">NIST Round</span><span class="da-val" id="dNistRound">—</span></div>
+        <div class="dc-anchor-row"><span class="da-lbl">BTC Block</span><span class="da-val" id="dBtcBlock">—</span></div>
+        <div class="dc-anchor-row"><span class="da-lbl">τ_t</span><span class="da-val mono" id="dTau">—</span></div>
+        <div class="dc-status" id="dAnchorStatus"><span class="ds-dot"></span>NOT ANCHORED</div>
+      </div>
+    </div>
+    <div class="dash-card dash-card-wide">
+      <div class="dc-hdr"><span class="dc-icon">🏛</span><span class="dc-title">Regulator Registry (F2b) — Append-Only Epoch Ledger</span></div>
+      <div class="dc-body">
+        <div class="reg-table-wrap">
+          <table class="reg-table" id="regTable">
+            <thead><tr><th>Epoch</th><th>Institution</th><th>Status</th><th>GH_t</th><th>Timestamp</th></tr></thead>
+            <tbody id="regTbody"><tr><td colspan="5" class="reg-empty">No epochs registered</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EPOCH METRICS CHART -->
+<section class="chart-sec">
+  <div class="chart-wrap">
+    <div class="chart-hdr">
+      <span class="chart-title">📈 Epoch Metrics — Verify Time (ms) &amp; Pass/Fail per Epoch</span>
+      <div class="chart-legend">
+        <div class="cl-item"><div class="cl-dot" style="background:#3dffa0"></div>PASS</div>
+        <div class="cl-item"><div class="cl-dot" style="background:#ff4d6d"></div>FAIL / ATTACK</div>
+        <div class="cl-item"><div class="cl-dot" style="background:#4d9fff"></div>VERIFY TIME (ms)</div>
+      </div>
+    </div>
+    <canvas id="epochChart"></canvas>
+    <div id="chartEmpty" style="font-family:var(--mono);font-size:11px;color:var(--txt3);text-align:center;padding:20px">
+      Chart populates as epochs are generated
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════ COMPLIANCE TIMELINE ══════════════════════════════════ -->
+<section class="timeline-sec" id="timeline" style="padding:80px 60px">
+  <div class="sec-hdr">
+    <div class="sec-tag">F8 + F7 — Temporal Compliance Window</div>
+    <h2 class="sec-title">Compliance Timeline</h2>
+    <p class="sec-desc">Visual epoch-by-epoch compliance state. Shows the current sliding window, GH_t chain evolution, and violation detection — the core of what a regulator sees.</p>
+  </div>
+  <div class="tl-wrap" id="tlWrap">
+    <div style="font-family:var(--mono);font-size:11px;color:var(--txt3);text-align:center;padding:30px;
+      border:1px dashed var(--bdr);border-radius:var(--rad)">
+      Generate epochs in the Demo section to populate the compliance timeline.
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════ MULTI-INSTITUTION ══════════════════════════════════ -->
+<section class="multi-sec" id="multi" style="padding:80px 60px">
+  <div class="sec-hdr">
+    <div class="sec-tag">Concurrent Multi-Entity Simulation</div>
+    <h2 class="sec-title">Multi-Institution Panel</h2>
+    <p class="sec-desc">Three institutions running independent ARAG chains simultaneously under a shared regulator. Inject targeted attacks on specific institutions to see selective detection.</p>
+  </div>
+  <div class="multi-grid-ctrl">
+    <button class="btn btn-p btn-sm" onclick="multiInitAll()" id="miBtnInit">Initialize All Institutions</button>
+    <button class="btn btn-s btn-sm" onclick="multiRunRound()" id="miBtnRun" disabled>▶ Run Epoch Round</button>
+    <button class="btn btn-s btn-sm" onclick="multiRunBatch(5)" id="miBtnBatch" disabled>▶▶ Run 5 Rounds</button>
+    <button class="btn btn-s btn-sm" onclick="multiReset()">↺ Reset</button>
+    <span id="miStatus" style="font-family:var(--mono);font-size:10px;color:var(--txt3)"></span>
+  </div>
+  <div class="multi-inst-grid" id="multiInstGrid">
+    <div style="grid-column:1/-1;font-family:var(--mono);font-size:11px;color:var(--txt3);text-align:center;
+      padding:30px;border:1px dashed var(--bdr);border-radius:var(--rad)">
+      Click "Initialize All Institutions" to start the multi-institution simulation.
+    </div>
+  </div>
+  <div class="mi-reg" id="miReg" style="display:none">
+    <div class="mi-reg-hdr"><span class="dc-icon">🏛</span><span class="mi-reg-title">Shared Regulator Registry — All Institutions</span></div>
+    <div style="overflow-x:auto">
+      <table class="mi-reg-table" id="miRegTable">
+        <thead><tr><th>Round</th><th>Institution</th><th>Predicate</th><th>Status</th><th>GH_t</th><th>TEE</th><th>Attack</th></tr></thead>
+        <tbody id="miRegTbody"></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════ DEMO ══════════════════════════════════ -->
+<section class="demo-sec" id="demo">
+  <div class="sec-hdr">
+    <div class="sec-tag">Interactive Simulation — Full Epoch Lifecycle</div>
+    <h2 class="sec-title">Live ARAG Demo</h2>
+    <p class="sec-desc">TEE initialization → ZKP → Attestation → AGKD → Recursive Graph Hash → Portable Proof Bundle. Enable Step Mode to walk through each phase individually.</p>
+  </div>
+
+  <!-- MULTI RUN BAR -->
+  <div class="multi-bar" id="multiBar" style="max-width:1200px;margin:0 auto 20px">
+    <span class="mb-label">QUICK RUN:</span>
+    <div class="mb-btns">
+      <button class="btn btn-s btn-sm" onclick="runMulti(3)"  id="mBtn3">Run 3 Epochs</button>
+      <button class="btn btn-s btn-sm" onclick="runMulti(5)"  id="mBtn5">Run 5 Epochs</button>
+      <button class="btn btn-s btn-sm" onclick="runMulti(10)" id="mBtn10">Run 10 Epochs</button>
+    </div>
+    <div class="prog-bar-wrap"><div class="prog-bar" id="progBar"></div></div>
+    <span class="mb-prog" id="multiProg"></span>
+  </div>
+
+  <div class="demo-grid">
+    <div class="panel" style="display:flex;flex-direction:column;gap:14px">
+      <div class="ctrl-grp">
+        <label class="ctrl-lbl">Institution</label>
+        <select class="ctrl-sel" id="selInst">
+          <option value="bank">Global Investment Bank</option>
+          <option value="exchange">Crypto Exchange Ltd.</option>
+          <option value="fund">Meridian Hedge Fund</option>
+          <option value="insurer">Pacific Insurance Co.</option>
+        </select>
+      </div>
+      <div class="ctrl-grp">
+        <label class="ctrl-lbl">Compliance Predicate</label>
+        <select class="ctrl-sel" id="selPred">
+          <option value="solvency">Basel III Solvency Ratio ≥ 8%</option>
+          <option value="liquidity">LCR ≥ 100%</option>
+          <option value="sanctions">AML Sanctions Screening</option>
+          <option value="var">VaR Limit Compliance</option>
+        </select>
+      </div>
+      <div class="ctrl-grp">
+        <label class="ctrl-lbl">TEE Hardware</label>
+        <select class="ctrl-sel" id="selTEE">
+          <option value="sgx">Intel SGX</option>
+          <option value="sev">AMD SEV</option>
+          <option value="tz">ARM TrustZone</option>
+        </select>
+      </div>
+      <div class="ctrl-grp">
+        <label class="ctrl-lbl">Epoch Window (sub-epochs)</label>
+        <select class="ctrl-sel" id="selEpochSize">
+          <option value="12">12 sub-epochs</option>
+          <option value="24" selected>24 sub-epochs (default)</option>
+          <option value="48">48 sub-epochs</option>
+        </select>
+      </div>
+      <div class="ctrl-grp">
+        <label class="ctrl-lbl">Compliance Threshold</label>
+        <input type="range" class="sld" id="sldThreshold" min="5" max="15" value="8" oninput="updateThresholdLabel()"/>
+        <span class="sld-v" id="thresholdLbl">Threshold: 8%</span>
+      </div>
+      <div class="step-toggle-row">
+        <span class="step-toggle-lbl">STEP MODE (phase-by-phase)</span>
+        <label class="tgl-sm"><input type="checkbox" id="stepModeToggle" onchange="onStepModeChange()"/><span class="tgl-sm-tr"></span></label>
+      </div>
+      <button class="btn-run" id="runBtn" onclick="runEpoch()">▶ &nbsp;Generate Epoch</button>
+      <button class="btn-auto" id="autoBtn" onclick="startAutoDemo()">⚡ Auto Demo (Full Sequence)</button>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+        <button class="btn btn-s btn-sm" onclick="resetAll()">↺ Reset</button>
+        <button class="btn btn-s btn-sm" onclick="downloadBundle()">⬇ Bundle</button>
+        <button class="btn btn-s btn-sm" onclick="exportChainJSON()">📤 Export Chain</button>
+        <button class="btn btn-s btn-sm" onclick="goto('attacks')">⚡ Attacks</button>
+      </div>
+    </div>
+    <div class="out-panel">
+      <!-- STEP MODE PANEL -->
+      <div class="step-panel" id="stepPanel">
+        <div class="step-hdr">STEP EXECUTION MODE</div>
+        <div class="step-track" id="stepTrack"></div>
+        <div class="step-desc" id="stepDesc">Ready — click Generate Epoch to begin step-by-step execution.</div>
+        <div class="step-btns">
+          <button class="btn-step" id="stepNextBtn" onclick="advanceStep()" disabled>▶ Next Step</button>
+          <button class="btn-step-skip" onclick="skipAllSteps()">⏭ Complete All</button>
+        </div>
+      </div>
+      <div class="term">
+        <div class="term-hdr">
+          <div class="dots"><span class="dot dr"></span><span class="dot dy"></span><span class="dot dg"></span></div>
+          <span class="term-ttl">ARAG Execution Console</span>
+          <span class="term-epoch-ctr" id="termEpochCtr"></span>
+        </div>
+        <div class="term-body" id="termBody">
+          <div class="tl tl-info">// ARAG Demo System v5 — Ready</div>
+          <div class="tl tl-info">// Enable Step Mode to walk through each phase individually</div>
+          <div class="tl tl-info">// Or click ⚡ Auto Demo for the full scripted walkthrough</div>
+          <div class="tl tl-info" style="opacity:.4">_</div>
+        </div>
+      </div>
+      <div class="bundle-card" id="bundleCard">
+        <div class="bc-hdr">
+          <span class="bc-tag">PORTABLE PROOF BUNDLE</span>
+          <span class="bc-ep" id="bcEpLbl">Epoch —</span>
+        </div>
+        <div class="bc-fields" id="bcFields"></div>
+        <div class="bc-foot">
+          <span class="v-badge" id="bcBadge"></span>
+          <button class="btn btn-s btn-sm" onclick="verifyCurrentBundle()">Verify O(1)</button>
+          <button class="btn btn-s btn-sm" onclick="loadIntoFailureTrace()">Failure Trace</button>
+          <button class="btn btn-s btn-sm" onclick="downloadBundle()">⬇</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════ ATTACKS ══════════════════════════════════ -->
+<section class="atk-sec" id="attacks">
+  <div class="sec-hdr">
+    <div class="sec-tag">Adversarial Testing — Directly Proves All Patent Claims</div>
+    <h2 class="sec-title">Attack Simulation Panel</h2>
+    <p class="sec-desc">7 attack vectors covering all ARAG security claims. Toggle attacks and generate an epoch — ARAG detects and logs every failure with precise field-level diagnostics.</p>
+  </div>
+  <div class="atk-grid">
+    <div class="atk-toggles">
+      <div class="atk-card" id="atkGenesisCrd">
+        <div class="atk-top">
+          <label class="tgl-big"><input type="checkbox" id="fltGenesis" onchange="onFaultToggle()"/><span class="tgl-big-tr"></span></label>
+          <div class="atk-info">
+            <div class="atk-name">🔴 Fraudulent Genesis</div>
+            <div class="atk-desc">Bypass regulator co-signature on vk₀ — attacker tries to start a chain without regulator knowledge</div>
+            <div class="atk-claim">Counters: F2a claim · vk_0 = H(TEE_pub ‖ REG_pub ‖ policy ‖ nonce)</div>
+          </div>
+        </div>
+        <div class="atk-status" id="atkGenesisSt">INACTIVE</div>
+      </div>
+      <div class="atk-card" id="atkTimestampCrd">
+        <div class="atk-top">
+          <label class="tgl-big"><input type="checkbox" id="fltTimestamp" onchange="onFaultToggle()"/><span class="tgl-big-tr"></span></label>
+          <div class="atk-info">
+            <div class="atk-name">🔴 Time Rollback</div>
+            <div class="atk-desc">Inject backdated τ_t to replay a past-compliant state as if it is current</div>
+            <div class="atk-claim">Counters: F3 claim · τ_t = NIST_Beacon ‖ BTC_blockhash</div>
+          </div>
+        </div>
+        <div class="atk-status" id="atkTimestampSt">INACTIVE</div>
+      </div>
+      <div class="atk-card" id="atkCircuitCrd">
+        <div class="atk-top">
+          <label class="tgl-big"><input type="checkbox" id="fltCircuit" onchange="onFaultToggle()"/><span class="tgl-big-tr"></span></label>
+          <div class="atk-info">
+            <div class="atk-name">🔴 Circuit Substitution</div>
+            <div class="atk-desc">Swap compliance circuit at runtime — pass a lax check while MRENCLAVE still looks valid</div>
+            <div class="atk-claim">Counters: F4 claim · C_hash = H(circuit_bytecode) bound in A_t</div>
+          </div>
+        </div>
+        <div class="atk-status" id="atkCircuitSt">INACTIVE</div>
+      </div>
+      <div class="atk-card" id="atkEpochSkipCrd">
+        <div class="atk-top">
+          <label class="tgl-big"><input type="checkbox" id="fltEpochSkip" onchange="onFaultToggle()"/><span class="tgl-big-tr"></span></label>
+          <div class="atk-info">
+            <div class="atk-name">🔴 Missing Epoch / Gap</div>
+            <div class="atk-desc">Skip a non-compliant epoch in the registry — hide it from the regulator</div>
+            <div class="atk-claim">Counters: F2b claim · append-only registry, gaps = cryptographic evidence</div>
+          </div>
+        </div>
+        <div class="atk-status" id="atkEpochSkipSt">INACTIVE</div>
+      </div>
+      <div class="atk-card" id="atkFakeProofCrd">
+        <div class="atk-top">
+          <label class="tgl-big"><input type="checkbox" id="fltFakeProof" onchange="onFaultToggle()"/><span class="tgl-big-tr"></span></label>
+          <div class="atk-info">
+            <div class="atk-name">🔴 Fake Attestation</div>
+            <div class="atk-desc">Inject synthetic attestation not generated by real trusted hardware</div>
+            <div class="atk-claim">Counters: F1/F4 claims · MRENCLAVE not in trusted hardware registry</div>
+          </div>
+        </div>
+        <div class="atk-status" id="atkFakeProofSt">INACTIVE</div>
+      </div>
+      <div class="atk-card" id="atkDMSCrd">
+        <div class="atk-top">
+          <label class="tgl-big"><input type="checkbox" id="fltDMS" onchange="onFaultToggle()"/><span class="tgl-big-tr"></span></label>
+          <div class="atk-info">
+            <div class="atk-name">🔴 Dead Man's Switch Abort</div>
+            <div class="atk-desc">Force TEE shutdown to destroy the sealed forward nonce — converts forced silence into evidence</div>
+            <div class="atk-claim">Counters: F6 claim · Com_t = H(nonce_{t+1} ‖ sched ‖ GH_t)</div>
+          </div>
+        </div>
+        <div class="atk-status" id="atkDMSSt">INACTIVE</div>
+      </div>
+      <div class="atk-card" id="atkTamperHashCrd">
+        <div class="atk-top">
+          <label class="tgl-big"><input type="checkbox" id="fltTamperHash" onchange="onFaultToggle()"/><span class="tgl-big-tr"></span></label>
+          <div class="atk-info">
+            <div class="atk-name">🔴 Tamper Previous Hash</div>
+            <div class="atk-desc">Directly corrupt GH_prev to simulate a history-rewriting attack on the recursive chain</div>
+            <div class="atk-claim">Counters: F1 claim · GH_t = H(GH_{t-1} ‖ A_t ‖ π_t ‖ vk_t) — any tampering propagates</div>
+          </div>
+        </div>
+        <div class="atk-status" id="atkTamperHashSt">INACTIVE</div>
+      </div>
+    </div>
+    <div class="atk-result-panel" id="atkResult">
+      <div class="ar-hdr">⚡ Attack Simulation Output</div>
+      <div class="ar-ph">Toggle an attack above, then generate an epoch to see detection results.<br/><br/>
+        <span style="color:var(--txt3);font-size:10px">New: Tamper Previous Hash attack demonstrates the core recursive tamper-evidence property (F1).</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════ FAILURE TRACE ══════════════════════════════════ -->
+<section class="ftrace-sec" id="ftrace" style="padding:80px 60px">
+  <div class="sec-hdr">
+    <div class="sec-tag">Field-Level Security Diagnostics</div>
+    <h2 class="sec-title">Failure Trace Analyzer</h2>
+    <p class="sec-desc">Deep inspection of any bundle — shows exactly which cryptographic field failed, expected vs actual values, root cause, and security implication. The auditor's tool.</p>
+  </div>
+  <div class="ftrace-grid">
+    <div class="ftrace-in">
+      <div class="ftrace-title">Input Bundle</div>
+      <label class="ctrl-lbl" style="margin-bottom:6px;display:block">Paste Bundle JSON or load from chain</label>
+      <textarea class="bun-in" id="ftraceIn" style="height:220px"
+        placeholder='Paste a Portable Proof Bundle JSON here, or click a button below…'></textarea>
+      <div class="ft-load-btns">
+        <button class="btn btn-p btn-sm" onclick="runFailureTrace()">🔍 Analyze Bundle</button>
+        <button class="btn btn-s btn-sm" onclick="loadLastBundle()">Load Last Bundle</button>
+        <button class="btn btn-s btn-sm" onclick="loadSampleAttackBundle()">Load Attack Sample</button>
+        <button class="btn btn-s btn-sm" onclick="ftraceIn.value=''">Clear</button>
+      </div>
+    </div>
+    <div class="ftrace-out" id="ftraceOut">
+      <div class="ft-empty">Paste a bundle and click Analyze Bundle to see detailed field-level diagnostics.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════ ARCHITECTURE DIAGRAMS ══════════════════════════════════ -->
+<section class="diag-sec" id="diagrams">
+  <div class="sec-hdr">
+    <div class="sec-tag">Patent Figures</div>
+    <h2 class="sec-title">Architecture Diagrams</h2>
+    <p class="sec-desc">All three patent figures rendered as interactive SVG — system architecture, AGKD key derivation flow, and Proof-of-Silence + Merkle graph.</p>
+  </div>
+  <div class="dtabs">
+    <button class="dtab on" onclick="showDiag('fig1',this)">Fig 1 · System Architecture</button>
+    <button class="dtab" onclick="showDiag('fig2',this)">Fig 2 · AGKD Block Diagram</button>
+    <button class="dtab" onclick="showDiag('fig3',this)">Fig 3 · Silence + Merkle</button>
+  </div>
+  <div class="diag-wrap">
+    <iframe class="diag-frame" id="diagFrame" src="diagrams/fig1.html" frameborder="0"></iframe>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════ EPOCH CHAIN ══════════════════════════════════ -->
+<section class="chain-sec" id="chain">
+  <div class="sec-hdr">
+    <div class="sec-tag">Recursive State Evolution</div>
+    <h2 class="sec-title">Epoch Chain Visualization</h2>
+    <p class="sec-desc">GH_t = H(GH_{t-1} ‖ A_t ‖ π_t ‖ vk_t) — vk and GH evolution shown explicitly. Click any epoch node to inspect &amp; load into verifier or failure tracer.</p>
+  </div>
+  <div class="state-diagram" id="stateDiagram" style="display:none">
+    <div class="sd-row-wrap">
+      <div class="sd-label">KEY CHAIN (vk)</div>
+      <div class="sd-row" id="sdVkRow"></div>
+    </div>
+    <div class="sd-row-wrap" style="margin-top:10px">
+      <div class="sd-label">GRAPH HASH (GH)</div>
+      <div class="sd-row" id="sdGhRow"></div>
+    </div>
+  </div>
+  <div class="chain-integrity-bar" id="chainIntegrity" style="display:none"></div>
+  <div class="chain-wrap">
+    <div class="chain-empty" id="chainEmpty">No epochs generated yet. Run the demo to build the chain.</div>
+    <div class="chain-scroll" id="chainScroll"></div>
+  </div>
+  <div class="chain-stats" id="chainStats" style="display:none">
+    <div class="cst"><span class="cst-v" id="stEpochs">0</span><span class="cst-l">Epochs</span></div>
+    <div class="cst"><span class="cst-v" id="stVerified">0</span><span class="cst-l">Verified</span></div>
+    <div class="cst"><span class="cst-v" id="stFailed">0</span><span class="cst-l">Failed</span></div>
+    <div class="cst"><span class="cst-v" id="stGH">—</span><span class="cst-l">Latest GH_t</span></div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════ VERIFIER ══════════════════════════════════ -->
+<section class="ver-sec" id="verify">
+  <div class="sec-hdr">
+    <div class="sec-tag">O(1) Offline Verification — Stateless</div>
+    <h2 class="sec-title">Independent Bundle Verifier</h2>
+    <p class="sec-desc">Verifier has zero knowledge of the generator's internal state. It re-derives all fields from the bundle alone — AGKD, GH_t, circuit binding, time oracle. Constant time regardless of chain depth.</p>
+  </div>
+  <div class="ver-grid">
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <label class="ctrl-lbl">Paste Bundle JSON</label>
+      <textarea class="bun-in" id="bunIn"
+        placeholder='{ "epoch": 1, "pi_t": {...}, "A_t": {...}, "vk_t": "...", "GH_t": "..." }'></textarea>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <button class="btn btn-p btn-sm" onclick="doVerify()">Verify Bundle</button>
+        <button class="btn btn-s btn-sm" onclick="loadSample()">Load Sample</button>
+        <button class="btn btn-s btn-sm" onclick="clearVerifier()">Clear</button>
+      </div>
+    </div>
+    <div class="panel ver-res" id="verRes">
+      <div class="vr-ph">Verification result will appear here</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════ PROOF-OF-SILENCE ══════════════════════════════════ -->
+<section class="sil-sec" id="silence">
+  <div class="sec-hdr">
+    <div class="sec-tag">F8 — Most Novel Mechanism · Zero Prior Art</div>
+    <h2 class="sec-title">Proof-of-Silence Simulator</h2>
+    <p class="sec-desc">Prove that a violation did NOT occur across the full epoch window — not just at sampled points. No existing ZKP system can prove absence of violation over continuous time.</p>
+  </div>
+  <div class="sil-grid">
+    <div class="panel" style="display:flex;flex-direction:column;gap:18px;align-self:start">
+      <div class="ctrl-grp">
+        <label class="ctrl-lbl">Sub-epochs per window</label>
+        <input type="range" class="sld" id="sldK" min="4" max="24" value="12" oninput="onSilChange()"/>
+        <span class="sld-v" id="sldKV">12 sub-epochs</span>
+      </div>
+      <div class="ctrl-grp">
+        <label class="ctrl-lbl">Inject violation at sub-epoch</label>
+        <input type="range" class="sld" id="sldV" min="0" max="24" value="0" oninput="onSilChange()"/>
+        <span class="sld-v" id="sldVV">None — all compliant</span>
+      </div>
+      <button class="btn btn-p btn-sm" onclick="genSilenceProof()">Generate Silence Proof</button>
+    </div>
+    <div id="silViz"></div>
+  </div>
+  <div class="sil-out" id="silOut"></div>
+</section>
+
+<!-- ══════════════════════════════════ MERKLE ══════════════════════════════════ -->
+<section class="mrk-sec" id="merkle">
+  <div class="sec-hdr">
+    <div class="sec-tag">F7 — Selective Disclosure + GDPR Art.17</div>
+    <h2 class="sec-title">Merkle Epoch Graph</h2>
+    <p class="sec-desc">Prove compliance for epoch range [i,j] without revealing epochs outside that range. GDPR erasure: provably absent, not secretly deleted. Merkle path shown explicitly.</p>
+  </div>
+  <div class="mrk-grid">
+    <div class="panel" style="display:flex;flex-direction:column;gap:18px;align-self:start">
+      <div class="ctrl-grp">
+        <label class="ctrl-lbl">Disclosure range [i → j]</label>
+        <div class="num-row">
+          <input type="number" class="num-in" id="mrkI" value="2" min="1" oninput="onMrkChange()"/>
+          <span style="color:var(--txt3);padding:0 8px">to</span>
+          <input type="number" class="num-in" id="mrkJ" value="4" min="1" oninput="onMrkChange()"/>
+        </div>
+      </div>
+      <div class="ctrl-grp">
+        <label class="ctrl-lbl">GDPR Erase epoch</label>
+        <input type="number" class="num-in" id="mrkE" value="0" min="0" oninput="onMrkChange()"/>
+        <span class="ctrl-hint">0 = no erasure</span>
+      </div>
+      <button class="btn btn-p btn-sm" onclick="genRangeProof()">Generate Range Proof</button>
+    </div>
+    <div id="mrkViz"></div>
+  </div>
+  <div class="mrk-out" id="mrkOut"></div>
+</section>
+
+<footer class="footer">
+  <div class="foot-grid">
+    <div class="foot-l"><span class="fa">ARAG</span><span class="fd">Adaptive Recursive Attestation Graph · v5</span></div>
+    <div class="foot-c">
+      <div class="fc-pat">Patent-Pending · Khurana &amp; Khurana IP Attorneys</div>
+      <div class="fc-inst">School of Electronics Engineering (SENSE) · VIT Chennai · March 2026</div>
+      <div class="fc-conf">CONFIDENTIAL — ATTORNEY-CLIENT PRIVILEGED WORK PRODUCT</div>
+    </div>
+    <div class="foot-r"><div class="fr-auth">Amritha S · Yugeshwaran P</div><div class="fr-adv">Dr. Sritama Roy, Associate Professor</div></div>
+  </div>
+</footer>
+
+<script src="src/utils/crypto.js"></script>
+<script src="src/utils/engine.js"></script>
+<script src="src/main.js"></script>
+</body>
+</html>

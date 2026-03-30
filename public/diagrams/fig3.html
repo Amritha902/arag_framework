@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8"/>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Syne:wght@700;800&display=swap" rel="stylesheet"/>
+<style>*{margin:0;padding:0;box-sizing:border-box}body{background:#07090f;padding:32px;display:flex;flex-direction:column;align-items:center}
+.wrap{width:1060px;background:#0b0f1c;border:1px solid #1c2a44;border-radius:6px;padding:40px}
+.title{text-align:center;margin-bottom:32px;padding-bottom:18px;border-bottom:1px solid #1c2a44}
+.fig-lbl{font-family:'JetBrains Mono',monospace;font-size:10px;color:#4d9fff;letter-spacing:3px;margin-bottom:8px}
+.fig-title{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:#d8e4f4}
+.fig-sub{font-family:'JetBrains Mono',monospace;font-size:12px;color:#3d5070;margin-top:6px}
+</style></head>
+<body><div class="wrap">
+<div class="title">
+  <div class="fig-lbl">FIGURE 3 — PATENT DIAGRAM</div>
+  <div class="fig-title">Proof-of-Silence (F8) · State Machine &amp; Merkle Epoch Graph (F7)</div>
+  <div class="fig-sub">Continuous Absence Attestation · Selective Epoch Disclosure · GDPR Art.17 Erasure</div>
+</div>
+<svg viewBox="0 0 1000 820" xmlns="http://www.w3.org/2000/svg" style="width:100%">
+<defs>
+  <marker id="a" markerWidth="8" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0,0 L0,7 L8,3.5z" fill="#4d9fff"/></marker>
+  <marker id="ag" markerWidth="8" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0,0 L0,7 L8,3.5z" fill="#3dffa0"/></marker>
+  <marker id="ar" markerWidth="8" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0,0 L0,7 L8,3.5z" fill="#ff4d6d"/></marker>
+  <filter id="gw"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+</defs>
+
+<!-- PART A HEADER -->
+<text x="500" y="20" font-family="Syne" font-size="14" fill="#d8e4f4" text-anchor="middle" font-weight="700">PART A — PROOF-OF-SILENCE · Sub-Epoch State Machine (F8)</text>
+<line x1="18" y1="28" x2="982" y2="28" stroke="#1c2a44" stroke-width="1"/>
+
+<!-- Epoch window bar -->
+<rect x="18" y="36" width="920" height="24" rx="3" fill="rgba(77,159,255,.04)" stroke="#1c2a44" stroke-width="1"/>
+<text x="478" y="52" font-family="JetBrains Mono" font-size="9" fill="#4d9fff" text-anchor="middle" letter-spacing="1">EPOCH WINDOW Δt  (e.g. 30 days = 720 hourly sub-epochs)</text>
+
+<!-- State machine nodes -->
+<!-- s0 -->
+<circle cx="70" cy="130" r="28" fill="#071a0e" stroke="#3dffa0" stroke-width="2" filter="url(#gw)"/>
+<text x="70" y="125" font-family="JetBrains Mono" font-size="8" fill="#3dffa0" text-anchor="middle" font-weight="700">s_0</text>
+<text x="70" y="138" font-family="JetBrains Mono" font-size="8" fill="#3dffa0" text-anchor="middle">INIT</text>
+<text x="70" y="173" font-family="JetBrains Mono" font-size="9" fill="#3dffa0" text-anchor="middle">COMPLIANT</text>
+
+<!-- Arrow s0→s1 -->
+<line x1="98" y1="130" x2="172" y2="130" stroke="#3dffa0" stroke-width="1.5" marker-end="url(#ag)"/>
+<text x="135" y="122" font-family="JetBrains Mono" font-size="8" fill="#3dffa0" text-anchor="middle">P(x_1)=T</text>
+
+<circle cx="200" cy="130" r="24" fill="#071a0e" stroke="#3dffa0" stroke-width="2"/>
+<text x="200" y="125" font-family="JetBrains Mono" font-size="8" fill="#3dffa0" text-anchor="middle" font-weight="700">s_1</text>
+<text x="200" y="138" font-family="JetBrains Mono" font-size="8" fill="#3dffa0" text-anchor="middle">OK</text>
+<text x="200" y="168" font-family="JetBrains Mono" font-size="9" fill="#2a7a4a" text-anchor="middle">COMPLIANT</text>
+
+<line x1="224" y1="130" x2="298" y2="130" stroke="#3dffa0" stroke-width="1.5" marker-end="url(#ag)"/>
+<text x="261" y="122" font-family="JetBrains Mono" font-size="8" fill="#3dffa0" text-anchor="middle">P(x_2)=T</text>
+
+<circle cx="326" cy="130" r="24" fill="#071a0e" stroke="#3dffa0" stroke-width="2"/>
+<text x="326" y="125" font-family="JetBrains Mono" font-size="8" fill="#3dffa0" text-anchor="middle" font-weight="700">s_2</text>
+<text x="326" y="138" font-family="JetBrains Mono" font-size="8" fill="#3dffa0" text-anchor="middle">OK</text>
+<text x="326" y="168" font-family="JetBrains Mono" font-size="9" fill="#2a7a4a" text-anchor="middle">COMPLIANT</text>
+
+<line x1="350" y1="130" x2="424" y2="130" stroke="#3dffa0" stroke-width="1.5" marker-end="url(#ag)"/>
+<text x="387" y="122" font-family="JetBrains Mono" font-size="8" fill="#3dffa0" text-anchor="middle">P(x_3)=T</text>
+
+<text x="478" y="136" font-family="JetBrains Mono" font-size="22" fill="#3dffa0">···</text>
+
+<line x1="510" y1="130" x2="584" y2="130" stroke="#3dffa0" stroke-width="1.5" marker-end="url(#ag)"/>
+
+<circle cx="612" cy="130" r="24" fill="#071a0e" stroke="#3dffa0" stroke-width="2" filter="url(#gw)"/>
+<text x="612" y="125" font-family="JetBrains Mono" font-size="8" fill="#3dffa0" text-anchor="middle" font-weight="700">s_k</text>
+<text x="612" y="138" font-family="JetBrains Mono" font-size="8" fill="#3dffa0" text-anchor="middle">FINAL</text>
+<text x="612" y="168" font-family="JetBrains Mono" font-size="9" fill="#6affb0" text-anchor="middle" font-weight="700">COMPLIANT</text>
+
+<!-- ZKP output box -->
+<rect x="660" y="98" width="280" height="88" rx="4" fill="#071a0e" stroke="#3dffa0" stroke-width="2" filter="url(#gw)"/>
+<text x="800" y="120" font-family="Syne" font-size="11" fill="#3dffa0" text-anchor="middle" font-weight="700">ZKP SILENCE PROOF  π_t</text>
+<text x="800" y="138" font-family="JetBrains Mono" font-size="8.5" fill="#3dffa0" text-anchor="middle">ZKProve(</text>
+<text x="800" y="152" font-family="JetBrains Mono" font-size="8.5" fill="#3dffa0" text-anchor="middle">State_k == COMPLIANT</text>
+<text x="800" y="166" font-family="JetBrains Mono" font-size="8.5" fill="#3dffa0" text-anchor="middle">AND k == Δt/δ</text>
+<text x="800" y="180" font-family="JetBrains Mono" font-size="8.5" fill="#3dffa0" text-anchor="middle">AND all results TRUE)</text>
+<line x1="636" y1="130" x2="659" y2="130" stroke="#3dffa0" stroke-width="1.5" marker-end="url(#ag)"/>
+
+<!-- VIOLATION path -->
+<path d="M 350 108 Q 440 70 510 78" stroke="#ff4d6d" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#ar)"/>
+<circle cx="540" cy="78" r="26" fill="#1a0808" stroke="#ff4d6d" stroke-width="2"/>
+<text x="540" y="73" font-family="JetBrains Mono" font-size="8" fill="#ff8090" text-anchor="middle" font-weight="700">VIOL</text>
+<text x="540" y="87" font-family="JetBrains Mono" font-size="7.5" fill="#ff4d6d" text-anchor="middle">P(x_i)=F</text>
+<text x="540" y="114" font-family="JetBrains Mono" font-size="8" fill="#ff4d6d" text-anchor="middle">proof fails</text>
+
+<!-- SilenceRecord -->
+<rect x="18" y="212" width="460" height="50" rx="4" fill="#0b1628" stroke="#1e3d6e" stroke-width="1.5"/>
+<text x="248" y="234" font-family="Syne" font-size="11" fill="#7bbfff" text-anchor="middle" font-weight="700">SILENCE RECORD  (sealed inside TEE)</text>
+<text x="248" y="252" font-family="JetBrains Mono" font-size="8.5" fill="#4d9fff" text-anchor="middle">SilenceRecord_t = { k ,  H(result_1 ‖ … ‖ result_k) ,  State_k }</text>
+
+<rect x="494" y="212" width="468" height="50" rx="4" fill="#0b1628" stroke="#1e3d6e" stroke-width="1.5"/>
+<text x="728" y="234" font-family="Syne" font-size="11" fill="#7bbfff" text-anchor="middle" font-weight="700">ATTESTATION (TEE-signed)</text>
+<text x="728" y="252" font-family="JetBrains Mono" font-size="8.5" fill="#4d9fff" text-anchor="middle">A_t_silence = Attest( MRENCLAVE ‖ C_hash ‖ H(SilenceRecord_t) ‖ τ_t )</text>
+
+<!-- divider -->
+<line x1="18" y1="284" x2="982" y2="284" stroke="#1c2a44" stroke-width="1.5" stroke-dasharray="8,4"/>
+
+<!-- PART B HEADER -->
+<text x="500" y="306" font-family="Syne" font-size="14" fill="#d8e4f4" text-anchor="middle" font-weight="700">PART B — MERKLE EPOCH GRAPH (F7) · Selective Disclosure + GDPR Erasure</text>
+
+<!-- Merkle leaf nodes -->
+<!-- leaf 1 -->
+<rect x="18" y="330" width="120" height="50" rx="3" fill="#0b1628" stroke="#1e3d6e" stroke-width="1.5"/>
+<text x="78" y="350" font-family="JetBrains Mono" font-size="9" fill="#7bbfff" text-anchor="middle" font-weight="700">leaf_1</text>
+<text x="78" y="368" font-family="JetBrains Mono" font-size="8" fill="#4d9fff" text-anchor="middle">H(GH₁‖ep₁‖vk₁‖A₁)</text>
+
+<!-- leaf 2 - in range (highlighted) -->
+<rect x="156" y="330" width="120" height="50" rx="3" fill="rgba(61,255,160,.07)" stroke="#3dffa0" stroke-width="2"/>
+<text x="216" y="350" font-family="JetBrains Mono" font-size="9" fill="#7affc0" text-anchor="middle" font-weight="700">leaf_2 ★</text>
+<text x="216" y="368" font-family="JetBrains Mono" font-size="8" fill="#3dffa0" text-anchor="middle">H(GH₂‖ep₂‖vk₂‖A₂)</text>
+
+<!-- leaf 3 - ERASED -->
+<rect x="294" y="330" width="120" height="50" rx="3" fill="rgba(255,77,109,.06)" stroke="#ff4d6d" stroke-width="1.5" stroke-dasharray="5,3"/>
+<text x="354" y="348" font-family="JetBrains Mono" font-size="8.5" fill="#ff8090" text-anchor="middle" font-weight="700">⚠ ERASED leaf_3</text>
+<text x="354" y="362" font-family="JetBrains Mono" font-size="7.5" fill="#ff4d6d" text-anchor="middle">H("ERASED"‖erasure_cert)</text>
+<text x="354" y="376" font-family="JetBrains Mono" font-size="7.5" fill="#ff4d6d" text-anchor="middle">GDPR Art.17</text>
+
+<!-- leaf 4 - in range -->
+<rect x="432" y="330" width="120" height="50" rx="3" fill="rgba(61,255,160,.07)" stroke="#3dffa0" stroke-width="2"/>
+<text x="492" y="350" font-family="JetBrains Mono" font-size="9" fill="#7affc0" text-anchor="middle" font-weight="700">leaf_4 ★</text>
+<text x="492" y="368" font-family="JetBrains Mono" font-size="8" fill="#3dffa0" text-anchor="middle">H(GH₄‖ep₄‖vk₄‖A₄)</text>
+
+<!-- leaf 5 -->
+<rect x="570" y="330" width="120" height="50" rx="3" fill="#0b1628" stroke="#1e3d6e" stroke-width="1.5"/>
+<text x="630" y="350" font-family="JetBrains Mono" font-size="9" fill="#7bbfff" text-anchor="middle" font-weight="700">leaf_5</text>
+<text x="630" y="368" font-family="JetBrains Mono" font-size="8" fill="#4d9fff" text-anchor="middle">H(GH₅‖ep₅‖vk₅‖A₅)</text>
+
+<!-- leaf 6 -->
+<rect x="708" y="330" width="120" height="50" rx="3" fill="#0b1628" stroke="#1e3d6e" stroke-width="1.5"/>
+<text x="768" y="350" font-family="JetBrains Mono" font-size="9" fill="#7bbfff" text-anchor="middle" font-weight="700">leaf_6</text>
+<text x="768" y="368" font-family="JetBrains Mono" font-size="8" fill="#4d9fff" text-anchor="middle">H(GH₆‖ep₆‖vk₆‖A₆)</text>
+
+<!-- Level 2 -->
+<line x1="78" y1="380" x2="147" y2="440" stroke="#1c2a44" stroke-width="1.5"/>
+<line x1="216" y1="380" x2="147" y2="440" stroke="#1c2a44" stroke-width="1.5"/>
+<rect x="87" y="440" width="120" height="44" rx="3" fill="#0b1628" stroke="#1e3d6e" stroke-width="1.5"/>
+<text x="147" y="460" font-family="JetBrains Mono" font-size="9" fill="#7bbfff" text-anchor="middle" font-weight="600">node_{1,2}</text>
+<text x="147" y="476" font-family="JetBrains Mono" font-size="7.5" fill="#4d9fff" text-anchor="middle">H(leaf_1 ‖ leaf_2)</text>
+
+<line x1="354" y1="380" x2="423" y2="440" stroke="#1c2a44" stroke-width="1.5"/>
+<line x1="492" y1="380" x2="423" y2="440" stroke="#1c2a44" stroke-width="1.5"/>
+<rect x="363" y="440" width="120" height="44" rx="3" fill="#0b1628" stroke="#1e3d6e" stroke-width="1.5"/>
+<text x="423" y="460" font-family="JetBrains Mono" font-size="9" fill="#7bbfff" text-anchor="middle" font-weight="600">node_{3,4}</text>
+<text x="423" y="476" font-family="JetBrains Mono" font-size="7.5" fill="#4d9fff" text-anchor="middle">H(leaf_3 ‖ leaf_4)</text>
+
+<line x1="630" y1="380" x2="699" y2="440" stroke="#1c2a44" stroke-width="1.5"/>
+<line x1="768" y1="380" x2="699" y2="440" stroke="#1c2a44" stroke-width="1.5"/>
+<rect x="639" y="440" width="120" height="44" rx="3" fill="#0b1628" stroke="#1e3d6e" stroke-width="1.5"/>
+<text x="699" y="460" font-family="JetBrains Mono" font-size="9" fill="#7bbfff" text-anchor="middle" font-weight="600">node_{5,6}</text>
+<text x="699" y="476" font-family="JetBrains Mono" font-size="7.5" fill="#4d9fff" text-anchor="middle">H(leaf_5 ‖ leaf_6)</text>
+
+<!-- Level 3 -->
+<line x1="147" y1="484" x2="285" y2="540" stroke="#1c2a44" stroke-width="1.5"/>
+<line x1="423" y1="484" x2="285" y2="540" stroke="#1c2a44" stroke-width="1.5"/>
+<rect x="225" y="540" width="120" height="44" rx="3" fill="#0d1f36" stroke="#2a5fa0" stroke-width="1.5"/>
+<text x="285" y="560" font-family="JetBrains Mono" font-size="9" fill="#9dc8f0" text-anchor="middle" font-weight="600">node_{1-4}</text>
+<text x="285" y="576" font-family="JetBrains Mono" font-size="7.5" fill="#4d9fff" text-anchor="middle">H(n12 ‖ n34)</text>
+
+<line x1="699" y1="484" x2="561" y2="540" stroke="#1c2a44" stroke-width="1.5"/>
+<line x1="423" y1="484" x2="561" y2="540" stroke="#1c2a44" stroke-width="1" stroke-dasharray="3,3"/>
+<rect x="501" y="540" width="120" height="44" rx="3" fill="#0d1f36" stroke="#2a5fa0" stroke-width="1.5"/>
+<text x="561" y="560" font-family="JetBrains Mono" font-size="9" fill="#9dc8f0" text-anchor="middle" font-weight="600">node_{5-6}</text>
+<text x="561" y="576" font-family="JetBrains Mono" font-size="7.5" fill="#4d9fff" text-anchor="middle">H(n12 ‖ n56)</text>
+
+<!-- Root -->
+<line x1="285" y1="584" x2="423" y2="636" stroke="#3dffa0" stroke-width="2"/>
+<line x1="561" y1="584" x2="423" y2="636" stroke="#3dffa0" stroke-width="2"/>
+<rect x="363" y="636" width="120" height="52" rx="4" fill="#071a0e" stroke="#3dffa0" stroke-width="2.5" filter="url(#gw)"/>
+<text x="423" y="658" font-family="Syne" font-size="11" fill="#3dffa0" text-anchor="middle" font-weight="700">MERKLE ROOT</text>
+<text x="423" y="674" font-family="JetBrains Mono" font-size="8.5" fill="#3dffa0" text-anchor="middle">MerkleRoot_N</text>
+<text x="423" y="686" font-family="JetBrains Mono" font-size="8" fill="#2a7a4a" text-anchor="middle">Published by Regulator</text>
+
+<!-- Range proof annotation -->
+<rect x="720" y="540" width="252" height="120" rx="4" fill="#0b0f1c" stroke="#1c2a44" stroke-width="1"/>
+<text x="846" y="562" font-family="Syne" font-size="11" fill="#9dc8f0" text-anchor="middle" font-weight="700">RANGE PROOF [2,4]</text>
+<text x="846" y="580" font-family="JetBrains Mono" font-size="8.5" fill="#4d9fff" text-anchor="middle">Prove compliance for</text>
+<text x="846" y="594" font-family="JetBrains Mono" font-size="8.5" fill="#4d9fff" text-anchor="middle">epochs [2,4] only:</text>
+<text x="846" y="610" font-family="JetBrains Mono" font-size="8.5" fill="#3dffa0" text-anchor="middle">{ leaf_2★, leaf_4★,</text>
+<text x="846" y="624" font-family="JetBrains Mono" font-size="8.5" fill="#3dffa0" text-anchor="middle">MerklePaths, ZKP }</text>
+<text x="846" y="638" font-family="JetBrains Mono" font-size="8" fill="#3d5070" text-anchor="middle">No disclosure outside [2,4]</text>
+<text x="846" y="652" font-family="JetBrains Mono" font-size="8" fill="#3d5070" text-anchor="middle">leaf_3: erased (GDPR)</text>
+
+<!-- Legend for stars -->
+<text x="18" y="770" font-family="JetBrains Mono" font-size="9" fill="#3dffa0">★ = disclosed in range proof</text>
+<text x="18" y="786" font-family="JetBrains Mono" font-size="9" fill="#ff4d6d">⚠ = GDPR-erased epoch (provably absent, not secretly deleted)</text>
+<text x="18" y="802" font-family="JetBrains Mono" font-size="9" fill="#3d5070">All unlabelled leaves: NOT disclosed to auditor — full privacy preserved</text>
+
+</svg>
+</div></body></html>

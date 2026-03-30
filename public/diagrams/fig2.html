@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8"/>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Syne:wght@700;800&display=swap" rel="stylesheet"/>
+<style>*{margin:0;padding:0;box-sizing:border-box}body{background:#07090f;padding:32px;display:flex;flex-direction:column;align-items:center}
+.wrap{width:1060px;background:#0b0f1c;border:1px solid #1c2a44;border-radius:6px;padding:40px;margin-bottom:32px}
+.title{text-align:center;margin-bottom:32px;padding-bottom:18px;border-bottom:1px solid #1c2a44}
+.fig-lbl{font-family:'JetBrains Mono',monospace;font-size:10px;color:#4d9fff;letter-spacing:3px;margin-bottom:8px}
+.fig-title{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:#d8e4f4}
+.fig-sub{font-family:'JetBrains Mono',monospace;font-size:12px;color:#3d5070;margin-top:6px}
+</style></head>
+<body>
+<div class="wrap">
+<div class="title">
+  <div class="fig-lbl">FIGURE 2 — PATENT DIAGRAM</div>
+  <div class="fig-title">AGKD · Attestation-Gated Key Derivation &amp; Recursive Graph Hash</div>
+  <div class="fig-sub">Epoch-to-Epoch Cryptographic Chaining · Forward Secrecy Mechanism</div>
+</div>
+<svg viewBox="0 0 1000 680" xmlns="http://www.w3.org/2000/svg" style="width:100%">
+<defs>
+  <marker id="a" markerWidth="8" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0,0 L0,7 L8,3.5z" fill="#4d9fff"/></marker>
+  <marker id="ag" markerWidth="8" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0,0 L0,7 L8,3.5z" fill="#3dffa0"/></marker>
+  <marker id="ap" markerWidth="8" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0,0 L0,7 L8,3.5z" fill="#a87eff"/></marker>
+  <marker id="ar" markerWidth="8" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0,0 L0,7 L8,3.5z" fill="#ff4d6d"/></marker>
+  <filter id="gw"><feGaussianBlur stdDeviation="2.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+</defs>
+
+<!-- EPOCH t-1 -->
+<text x="130" y="22" font-family="JetBrains Mono" font-size="11" fill="#4d9fff" text-anchor="middle" letter-spacing="1">EPOCH t-1</text>
+<rect x="18" y="30" width="224" height="240" rx="5" fill="#080c16" stroke="#1c2a44" stroke-width="1.5" stroke-dasharray="6,3"/>
+<rect x="34" y="46" width="192" height="54" rx="3" fill="#0b1628" stroke="#1e3d6e" stroke-width="1.5"/>
+<text x="130" y="68" font-family="Syne" font-size="11" fill="#7bbfff" text-anchor="middle" font-weight="700">VERIFICATION KEY</text>
+<text x="130" y="86" font-family="JetBrains Mono" font-size="10" fill="#4d9fff" text-anchor="middle">vk_{t-1}</text>
+<rect x="34" y="118" width="192" height="54" rx="3" fill="#0b1628" stroke="#1e3d6e" stroke-width="1.5"/>
+<text x="130" y="140" font-family="Syne" font-size="11" fill="#7bbfff" text-anchor="middle" font-weight="700">GRAPH HASH</text>
+<text x="130" y="158" font-family="JetBrains Mono" font-size="10" fill="#4d9fff" text-anchor="middle">GH_{t-1}</text>
+<rect x="34" y="190" width="192" height="54" rx="3" fill="#0b1628" stroke="#1e3d6e" stroke-width="1.5"/>
+<text x="130" y="212" font-family="Syne" font-size="11" fill="#7bbfff" text-anchor="middle" font-weight="700">ZKP PROOF</text>
+<text x="130" y="230" font-family="JetBrains Mono" font-size="10" fill="#4d9fff" text-anchor="middle">π_{t-1}</text>
+
+<!-- EPOCH t (center) -->
+<text x="510" y="22" font-family="JetBrains Mono" font-size="11" fill="#3dffa0" text-anchor="middle" letter-spacing="1">EPOCH t ← CURRENT</text>
+<rect x="258" y="30" width="500" height="530" rx="5" fill="#080c16" stroke="#1e3d6e" stroke-width="2" filter="url(#gw)"/>
+
+<rect x="274" y="46" width="468" height="64" rx="4" fill="#0b1628" stroke="#1e3d6e" stroke-width="1.5"/>
+<text x="508" y="70" font-family="Syne" font-size="11" fill="#9dc8f0" text-anchor="middle" font-weight="700">TEE INPUTS @ EPOCH t</text>
+<text x="508" y="88" font-family="JetBrains Mono" font-size="9" fill="#4d9fff" text-anchor="middle">x_t (encrypted data), w_t (witness), τ_t (time oracle), nonce_t (TRNG)</text>
+<text x="508" y="103" font-family="JetBrains Mono" font-size="9" fill="#3d5070" text-anchor="middle">C_enc decrypted by k_reg (F5: Blind Policy)  ·  C_hash = H(circuit_bytecode) (F4)</text>
+
+<rect x="274" y="132" width="226" height="58" rx="4" fill="#0b1628" stroke="#1e3d6e" stroke-width="1.5"/>
+<text x="387" y="156" font-family="Syne" font-size="11" fill="#9dc8f0" text-anchor="middle" font-weight="700">CIRCUIT EXEC</text>
+<text x="387" y="174" font-family="JetBrains Mono" font-size="8.5" fill="#4d9fff" text-anchor="middle">C_hash = H(circuit_bytecode)</text>
+
+<rect x="514" y="132" width="228" height="58" rx="4" fill="#0b1628" stroke="#1e3d6e" stroke-width="1.5"/>
+<text x="628" y="156" font-family="Syne" font-size="11" fill="#9dc8f0" text-anchor="middle" font-weight="700">ZKP PROVE</text>
+<text x="628" y="171" font-family="JetBrains Mono" font-size="8.5" fill="#4d9fff" text-anchor="middle">π_t = ZKProve(x_t, w_t, C, policy)</text>
+<text x="628" y="184" font-family="JetBrains Mono" font-size="8.5" fill="#4d9fff" text-anchor="middle">F8: Silence · 24 sub-epochs</text>
+
+<rect x="274" y="214" width="468" height="66" rx="4" fill="#0d1f36" stroke="#2a5fa0" stroke-width="2" filter="url(#gw)"/>
+<text x="508" y="238" font-family="Syne" font-size="12" fill="#4df0b0" text-anchor="middle" font-weight="700">TEE ATTESTATION QUOTE  A_t</text>
+<text x="508" y="256" font-family="JetBrains Mono" font-size="9" fill="#4d9fff" text-anchor="middle">A_t = TEE_Attest( MRENCLAVE ‖ C_hash ‖ Policy_t ‖ τ_t ‖ nonce_t )</text>
+<text x="508" y="272" font-family="JetBrains Mono" font-size="8.5" fill="#3d5070" text-anchor="middle">Hardware-signed ·  binds F4 (circuit) ‖ F3 (time oracle) ‖ F5 (policy)</text>
+
+<rect x="274" y="304" width="468" height="76" rx="4" fill="#071a0e" stroke="#3dffa0" stroke-width="2" filter="url(#gw)"/>
+<text x="508" y="330" font-family="Syne" font-size="12" fill="#3dffa0" text-anchor="middle" font-weight="700">AGKD — ATTESTATION-GATED KEY DERIVATION</text>
+<text x="508" y="350" font-family="JetBrains Mono" font-size="10" fill="#3dffa0" text-anchor="middle">vk_t = H( vk_{t-1} ‖ A_t ‖ Policy_t )</text>
+<text x="508" y="370" font-family="JetBrains Mono" font-size="9" fill="#2a7a4a" text-anchor="middle">No valid A_t  ⟹  No valid vk_t  ·  Forward secrecy across epochs</text>
+
+<rect x="274" y="406" width="468" height="76" rx="4" fill="#071a0e" stroke="#3dffa0" stroke-width="2" filter="url(#gw)"/>
+<text x="508" y="432" font-family="Syne" font-size="12" fill="#3dffa0" text-anchor="middle" font-weight="700">RECURSIVE GRAPH HASH</text>
+<text x="508" y="452" font-family="JetBrains Mono" font-size="10" fill="#3dffa0" text-anchor="middle">GH_t = H( GH_{t-1} ‖ A_t ‖ π_t ‖ vk_t )</text>
+<text x="508" y="470" font-family="JetBrains Mono" font-size="9" fill="#2a7a4a" text-anchor="middle">Tamper-evident: any change in any prior epoch → GH_t mismatch</text>
+
+<rect x="274" y="510" width="468" height="40" rx="4" fill="#071a0e" stroke="#2a7a4a" stroke-width="1.5"/>
+<text x="508" y="527" font-family="Syne" font-size="11" fill="#3dffa0" text-anchor="middle" font-weight="700">PORTABLE PROOF BUNDLE  B_t</text>
+<text x="508" y="543" font-family="JetBrains Mono" font-size="8.5" fill="#2a7a4a" text-anchor="middle">{ π_t ,  A_t ,  vk_t ,  GH_t ,  manifest_t }</text>
+
+<!-- EPOCH t+1 -->
+<text x="878" y="22" font-family="JetBrains Mono" font-size="11" fill="#a87eff" text-anchor="middle" letter-spacing="1">EPOCH t+1</text>
+<rect x="776" y="30" width="214" height="240" rx="5" fill="#080c16" stroke="#3d2a6e" stroke-width="1.5" stroke-dasharray="6,3"/>
+<rect x="790" y="46" width="186" height="54" rx="3" fill="#100820" stroke="#6a3a9a" stroke-width="1.5"/>
+<text x="883" y="68" font-family="Syne" font-size="11" fill="#c09af0" text-anchor="middle" font-weight="700">VERIFICATION KEY</text>
+<text x="883" y="86" font-family="JetBrains Mono" font-size="10" fill="#a87eff" text-anchor="middle">vk_{t+1}</text>
+<rect x="790" y="118" width="186" height="54" rx="3" fill="#100820" stroke="#6a3a9a" stroke-width="1.5"/>
+<text x="883" y="140" font-family="Syne" font-size="11" fill="#c09af0" text-anchor="middle" font-weight="700">GRAPH HASH</text>
+<text x="883" y="158" font-family="JetBrains Mono" font-size="10" fill="#a87eff" text-anchor="middle">GH_{t+1}</text>
+<rect x="790" y="190" width="186" height="54" rx="3" fill="#100820" stroke="#6a3a9a" stroke-width="1.5"/>
+<text x="883" y="212" font-family="Syne" font-size="11" fill="#c09af0" text-anchor="middle" font-weight="700">ZKP PROOF</text>
+<text x="883" y="230" font-family="JetBrains Mono" font-size="10" fill="#a87eff" text-anchor="middle">π_{t+1}</text>
+
+<!-- Arrows: prev epoch → AGKD/GH -->
+<path d="M 226 73 Q 248 73 248 342 L 272 342" stroke="#4d9fff" stroke-width="2" fill="none" marker-end="url(#a)"/>
+<text x="237" y="210" font-family="JetBrains Mono" font-size="9" fill="#4d9fff" text-anchor="middle" transform="rotate(-90,237,210)">vk_{t-1}</text>
+<path d="M 226 145 Q 252 145 252 444 L 272 444" stroke="#4d9fff" stroke-width="2" fill="none" marker-end="url(#a)"/>
+<text x="241" y="295" font-family="JetBrains Mono" font-size="9" fill="#4d9fff" text-anchor="middle" transform="rotate(-90,241,295)">GH_{t-1}</text>
+
+<!-- Down arrows inside epoch -->
+<line x1="508" y1="110" x2="387" y2="132" stroke="#4d9fff" stroke-width="1.5" marker-end="url(#a)"/>
+<line x1="508" y1="110" x2="628" y2="132" stroke="#4d9fff" stroke-width="1.5" marker-end="url(#a)"/>
+<line x1="387" y1="190" x2="450" y2="214" stroke="#4d9fff" stroke-width="1.5" marker-end="url(#a)"/>
+<line x1="628" y1="190" x2="565" y2="214" stroke="#4d9fff" stroke-width="1.5" marker-end="url(#a)"/>
+<line x1="508" y1="280" x2="508" y2="304" stroke="#3dffa0" stroke-width="2" marker-end="url(#ag)"/>
+<line x1="508" y1="380" x2="508" y2="406" stroke="#3dffa0" stroke-width="2" marker-end="url(#ag)"/>
+<line x1="508" y1="482" x2="508" y2="510" stroke="#3dffa0" stroke-width="2" marker-end="url(#ag)"/>
+
+<!-- vk_t, GH_t → epoch t+1 -->
+<path d="M 742 342 Q 764 342 764 73 L 788 73" stroke="#3dffa0" stroke-width="2" fill="none" marker-end="url(#ag)"/>
+<text x="754" y="210" font-family="JetBrains Mono" font-size="9" fill="#3dffa0" text-anchor="middle" transform="rotate(90,754,210)">vk_t</text>
+<path d="M 742 444 Q 768 444 768 145 L 788 145" stroke="#3dffa0" stroke-width="2" fill="none" marker-end="url(#ag)"/>
+<text x="758" y="295" font-family="JetBrains Mono" font-size="9" fill="#3dffa0" text-anchor="middle" transform="rotate(90,758,295)">GH_t</text>
+
+<!-- DMS -->
+<rect x="18" y="594" width="960" height="72" rx="4" fill="#0f0808" stroke="#ff4d6d" stroke-width="1.5"/>
+<text x="498" y="618" font-family="Syne" font-size="12" fill="#ff8090" text-anchor="middle" font-weight="700">DEAD MAN'S SWITCH (F6) — Sealed Liveness Forward Commitment</text>
+<text x="498" y="636" font-family="JetBrains Mono" font-size="9" fill="#ff4d6d" text-anchor="middle">nonce_{t+1} = TRNG()  sealed inside TEE at epoch t · cannot survive enclave shutdown</text>
+<text x="498" y="652" font-family="JetBrains Mono" font-size="9" fill="#ff4d6d" text-anchor="middle">Com_t = H( nonce_{t+1} ‖ scheduled_time_{t+1} ‖ GH_t )  → if B_{t+1} not received by deadline: unprovable Com_t = forced silence evidence</text>
+<line x1="508" y1="550" x2="508" y2="594" stroke="#ff4d6d" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#ar)"/>
+</svg>
+</div>
+</body></html>

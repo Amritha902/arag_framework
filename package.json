@@ -1,0 +1,13 @@
+{
+  "name": "arag-demo-v5",
+  "version": "5.0.0",
+  "description": "ARAG — Adaptive Recursive Attestation Graph · Patent Demo",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}

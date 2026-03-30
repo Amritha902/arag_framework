@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8"/>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Syne:wght@700;800&display=swap" rel="stylesheet"/>
+<style>*{margin:0;padding:0;box-sizing:border-box}body{background:#07090f;font-family:'Syne',sans-serif;padding:32px;display:flex;flex-direction:column;align-items:center}
+.wrap{width:1060px;background:#0b0f1c;border:1px solid #1c2a44;border-radius:6px;padding:40px}
+.title{text-align:center;margin-bottom:36px;padding-bottom:20px;border-bottom:1px solid #1c2a44}
+.fig-lbl{font-family:'JetBrains Mono',monospace;font-size:10px;color:#4d9fff;letter-spacing:3px;margin-bottom:8px}
+.fig-title{font-size:20px;font-weight:800;color:#d8e4f4}
+.fig-sub{font-family:'JetBrains Mono',monospace;font-size:12px;color:#3d5070;margin-top:6px}
+</style></head>
+<body><div class="wrap">
+<div class="title">
+  <div class="fig-lbl">FIGURE 1 — PATENT DIAGRAM</div>
+  <div class="fig-title">ARAG System Architecture — End-to-End Overview</div>
+  <div class="fig-sub">Adaptive Recursive Attestation Graph · Complete System Block Diagram</div>
+</div>
+<svg viewBox="0 0 1060 860" xmlns="http://www.w3.org/2000/svg" style="width:100%">
+<defs>
+  <marker id="a" markerWidth="8" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0,0 L0,7 L8,3.5z" fill="#4d9fff"/></marker>
+  <marker id="ag" markerWidth="8" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0,0 L0,7 L8,3.5z" fill="#3dffa0"/></marker>
+  <marker id="ap" markerWidth="8" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0,0 L0,7 L8,3.5z" fill="#a87eff"/></marker>
+  <marker id="ar" markerWidth="8" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0,0 L0,7 L8,3.5z" fill="#ff4d6d"/></marker>
+  <filter id="gw"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+</defs>
+
+<!-- INSTITUTION ZONE -->
+<rect x="8" y="8" width="680" height="560" rx="6" fill="none" stroke="#1c2a44" stroke-width="1.5" stroke-dasharray="8,4"/>
+<text x="22" y="30" font-family="JetBrains Mono" font-size="10" fill="#4d9fff" letter-spacing="2">INSTITUTION BOUNDARY</text>
+
+<!-- TEE -->
+<rect x="24" y="40" width="650" height="380" rx="5" fill="#080c16" stroke="#1e3d6e" stroke-width="2"/>
+<rect x="24" y="40" width="650" height="28" rx="5" fill="#1a3560"/>
+<rect x="24" y="62" width="650" height="6" fill="#1a3560"/>
+<text x="349" y="59" font-family="JetBrains Mono" font-size="11" fill="#7bbfff" text-anchor="middle" letter-spacing="3" font-weight="700">TRUSTED EXECUTION ENVIRONMENT (TEE) · INTEL SGX / AMD SEV</text>
+
+<!-- Input boxes row 1 -->
+<rect x="44" y="92" width="130" height="64" rx="4" fill="#0b1628" stroke="#1e3d6e" stroke-width="1.5"/>
+<text x="109" y="118" font-family="JetBrains Mono" font-size="9.5" fill="#7bbfff" text-anchor="middle">ENCRYPTED</text>
+<text x="109" y="133" font-family="JetBrains Mono" font-size="9.5" fill="#7bbfff" text-anchor="middle">DATA INPUT</text>
+<text x="109" y="148" font-family="JetBrains Mono" font-size="8.5" fill="#3d5070" text-anchor="middle">x_t, w_t</text>
+
+<rect x="196" y="92" width="130" height="64" rx="4" fill="#0b1628" stroke="#1e3d6e" stroke-width="1.5"/>
+<text x="261" y="118" font-family="JetBrains Mono" font-size="9.5" fill="#7bbfff" text-anchor="middle">ENCRYPTED</text>
+<text x="261" y="133" font-family="JetBrains Mono" font-size="9.5" fill="#7bbfff" text-anchor="middle">POLICY C_enc</text>
+<text x="261" y="148" font-family="JetBrains Mono" font-size="8.5" fill="#3d5070" text-anchor="middle">Blind Exec (F5)</text>
+
+<rect x="348" y="92" width="130" height="64" rx="4" fill="#0b1628" stroke="#1e3d6e" stroke-width="1.5"/>
+<text x="413" y="118" font-family="JetBrains Mono" font-size="9.5" fill="#7bbfff" text-anchor="middle">COMPLIANCE</text>
+<text x="413" y="133" font-family="JetBrains Mono" font-size="9.5" fill="#7bbfff" text-anchor="middle">CIRCUIT</text>
+<text x="413" y="148" font-family="JetBrains Mono" font-size="8.5" fill="#3d5070" text-anchor="middle">C_hash=H(bytecode)</text>
+
+<rect x="500" y="92" width="155" height="64" rx="4" fill="#0b1628" stroke="#1e3d6e" stroke-width="1.5"/>
+<text x="577" y="112" font-family="JetBrains Mono" font-size="9.5" fill="#7bbfff" text-anchor="middle">TIME ORACLE (F3)</text>
+<text x="577" y="127" font-family="JetBrains Mono" font-size="8.5" fill="#3d5070" text-anchor="middle">NIST Beacon</text>
+<text x="577" y="141" font-family="JetBrains Mono" font-size="8.5" fill="#3d5070" text-anchor="middle">BTC BlockHash</text>
+<text x="577" y="155" font-family="JetBrains Mono" font-size="8.5" fill="#3d5070" text-anchor="middle">τ_t = anchor</text>
+
+<!-- Arrows down -->
+<line x1="109" y1="156" x2="109" y2="200" stroke="#4d9fff" stroke-width="1.5" marker-end="url(#a)"/>
+<line x1="261" y1="156" x2="261" y2="200" stroke="#4d9fff" stroke-width="1.5" marker-end="url(#a)"/>
+<line x1="413" y1="156" x2="413" y2="200" stroke="#4d9fff" stroke-width="1.5" marker-end="url(#a)"/>
+<line x1="577" y1="156" x2="577" y2="200" stroke="#4d9fff" stroke-width="1.5" marker-end="url(#a)"/>
+
+<!-- ZKP Engine -->
+<rect x="44" y="200" width="260" height="84" rx="4" fill="#080e20" stroke="#2a5fa0" stroke-width="2" filter="url(#gw)"/>
+<text x="174" y="228" font-family="Syne" font-size="13" fill="#9dc8f0" text-anchor="middle" font-weight="700">ZKP PROOF ENGINE</text>
+<text x="174" y="246" font-family="JetBrains Mono" font-size="9" fill="#4d9fff" text-anchor="middle">π_t = ZKProve(x_t, w_t, circuit)</text>
+<text x="174" y="261" font-family="JetBrains Mono" font-size="9" fill="#4d9fff" text-anchor="middle">Proof-of-Silence: 24 sub-epochs (F8)</text>
+<text x="174" y="276" font-family="JetBrains Mono" font-size="9" fill="#4d9fff" text-anchor="middle">Groth16 · 192 bytes</text>
+
+<!-- TEE Attestation Engine -->
+<rect x="326" y="200" width="338" height="84" rx="4" fill="#080e20" stroke="#2a5fa0" stroke-width="2" filter="url(#gw)"/>
+<text x="495" y="228" font-family="Syne" font-size="13" fill="#9dc8f0" text-anchor="middle" font-weight="700">TEE ATTESTATION ENGINE</text>
+<text x="495" y="246" font-family="JetBrains Mono" font-size="9" fill="#4d9fff" text-anchor="middle">A_t = Attest(MRENCLAVE ‖ C_hash ‖ Policy_t ‖ τ_t ‖ nonce_t)</text>
+<text x="495" y="261" font-family="JetBrains Mono" font-size="9" fill="#4d9fff" text-anchor="middle">Hardware-signed remote attestation quote</text>
+<text x="495" y="276" font-family="JetBrains Mono" font-size="9" fill="#4d9fff" text-anchor="middle">Binds F4: C_hash ‖ F3: τ_t ‖ MRENCLAVE</text>
+
+<!-- Arrows to AGKD -->
+<line x1="174" y1="284" x2="174" y2="330" stroke="#4d9fff" stroke-width="1.5" marker-end="url(#a)"/>
+<line x1="495" y1="284" x2="495" y2="330" stroke="#4d9fff" stroke-width="1.5" marker-end="url(#a)"/>
+
+<!-- AGKD + GH -->
+<rect x="44" y="330" width="620" height="58" rx="4" fill="#071a0e" stroke="#3dffa0" stroke-width="2" filter="url(#gw)"/>
+<text x="354" y="356" font-family="Syne" font-size="12" fill="#4df0b0" text-anchor="middle" font-weight="700">AGKD · ATTESTATION-GATED KEY DERIVATION + RECURSIVE GRAPH HASH</text>
+<text x="354" y="374" font-family="JetBrains Mono" font-size="9.5" fill="#4d9fff" text-anchor="middle">vk_t = H(vk_{t-1} ‖ A_t ‖ Policy_t)     ·     GH_t = H(GH_{t-1} ‖ A_t ‖ π_t ‖ vk_t)</text>
+
+<!-- Arrow to PPB -->
+<line x1="354" y1="388" x2="354" y2="426" stroke="#3dffa0" stroke-width="2" marker-end="url(#ag)"/>
+
+<!-- PPB -->
+<rect x="44" y="426" width="620" height="62" rx="4" fill="#071a0e" stroke="#2a7a4a" stroke-width="1.5"/>
+<text x="354" y="452" font-family="Syne" font-size="12" fill="#3dffa0" text-anchor="middle" font-weight="700">PORTABLE PROOF BUNDLE  B_t  —  O(1) OFFLINE VERIFICATION</text>
+<text x="354" y="468" font-family="JetBrains Mono" font-size="9" fill="#3dffa0" text-anchor="middle">B_t = { π_t ,  A_t ,  vk_t ,  GH_t ,  manifest_t }</text>
+<text x="354" y="482" font-family="JetBrains Mono" font-size="8.5" fill="#2a7a4a" text-anchor="middle">Verify(vk_t, π_t, GH_t, A_t) → PASS/FAIL in O(1) — no chain traversal</text>
+
+<!-- DMS + Merkle -->
+<rect x="44" y="510" width="300" height="48" rx="4" fill="#140808" stroke="#ff4d6d" stroke-width="1.5"/>
+<text x="194" y="530" font-family="JetBrains Mono" font-size="10" fill="#ff8090" text-anchor="middle" font-weight="700">DEAD MAN'S SWITCH (F6)</text>
+<text x="194" y="548" font-family="JetBrains Mono" font-size="8.5" fill="#ff4d6d" text-anchor="middle">Com_t = H(nonce_{t+1} ‖ sched_{t+1} ‖ GH_t)</text>
+
+<rect x="364" y="510" width="300" height="48" rx="4" fill="#071a0e" stroke="#3dffa0" stroke-width="1.5"/>
+<text x="514" y="530" font-family="JetBrains Mono" font-size="10" fill="#7affc0" text-anchor="middle" font-weight="700">MERKLE EPOCH GRAPH (F7)</text>
+<text x="514" y="548" font-family="JetBrains Mono" font-size="8.5" fill="#3dffa0" text-anchor="middle">leaf_t = H(GH_t ‖ epoch_t ‖ vk_t ‖ A_t)</text>
+
+<!-- REGULATOR ZONE -->
+<rect x="708" y="8" width="340" height="560" rx="6" fill="none" stroke="#3d2a6e" stroke-width="1.5" stroke-dasharray="8,4"/>
+<text x="722" y="30" font-family="JetBrains Mono" font-size="10" fill="#a87eff" letter-spacing="2">REGULATOR BOUNDARY</text>
+
+<rect x="724" y="44" width="308" height="96" rx="4" fill="#100820" stroke="#6a3a9a" stroke-width="1.5"/>
+<text x="878" y="70" font-family="Syne" font-size="12" fill="#c09af0" text-anchor="middle" font-weight="700">GENESIS AUTHORITY (F2a)</text>
+<text x="878" y="88" font-family="JetBrains Mono" font-size="8.5" fill="#8a6acc" text-anchor="middle">vk_0 = H(TEE_pub ‖ REG_pub ‖ policy_hash ‖ nonce)</text>
+<text x="878" y="104" font-family="JetBrains Mono" font-size="8.5" fill="#8a6acc" text-anchor="middle">GH_0 = H(vk_0 ‖ A_genesis ‖ REG_sig(...))</text>
+<text x="878" y="120" font-family="JetBrains Mono" font-size="8.5" fill="#8a6acc" text-anchor="middle">Genesis_cert = Sig_REG(vk_0 ‖ GH_0 ‖ ts)</text>
+<text x="878" y="135" font-family="JetBrains Mono" font-size="8" fill="#5a3a8a" text-anchor="middle">Regulator-Witnessed Genesis Protocol</text>
+
+<rect x="724" y="162" width="308" height="84" rx="4" fill="#100820" stroke="#6a3a9a" stroke-width="1.5"/>
+<text x="878" y="186" font-family="Syne" font-size="12" fill="#c09af0" text-anchor="middle" font-weight="700">EPOCH REGISTRY (F2b)</text>
+<text x="878" y="204" font-family="JetBrains Mono" font-size="8.5" fill="#8a6acc" text-anchor="middle">Registry[t] = Commit_t (append-only)</text>
+<text x="878" y="220" font-family="JetBrains Mono" font-size="8.5" fill="#8a6acc" text-anchor="middle">Commit_t = H(GH_t ‖ epoch_num ‖ ts)</text>
+<text x="878" y="236" font-family="JetBrains Mono" font-size="8.5" fill="#8a6acc" text-anchor="middle">Gap: missing t → cryptographic evidence</text>
+
+<rect x="724" y="268" width="308" height="84" rx="4" fill="#100820" stroke="#6a3a9a" stroke-width="1.5"/>
+<text x="878" y="292" font-family="Syne" font-size="12" fill="#c09af0" text-anchor="middle" font-weight="700">POLICY PUBLISHER (F5)</text>
+<text x="878" y="310" font-family="JetBrains Mono" font-size="8.5" fill="#8a6acc" text-anchor="middle">C_enc = Enc(circuit_bytecode, k_reg)</text>
+<text x="878" y="326" font-family="JetBrains Mono" font-size="8.5" fill="#8a6acc" text-anchor="middle">C_commit = H(circuit_bytecode)</text>
+<text x="878" y="342" font-family="JetBrains Mono" font-size="8.5" fill="#8a6acc" text-anchor="middle">Blind policy: circuit sealed by regulator</text>
+
+<rect x="724" y="374" width="308" height="84" rx="4" fill="#100820" stroke="#6a3a9a" stroke-width="1.5"/>
+<text x="878" y="398" font-family="Syne" font-size="12" fill="#c09af0" text-anchor="middle" font-weight="700">AUDITOR / VERIFIER</text>
+<text x="878" y="416" font-family="JetBrains Mono" font-size="8.5" fill="#8a6acc" text-anchor="middle">Receives: B_t bundle</text>
+<text x="878" y="432" font-family="JetBrains Mono" font-size="8.5" fill="#8a6acc" text-anchor="middle">Verifies: vk_t, π_t, GH_t, A_t — O(1)</text>
+<text x="878" y="448" font-family="JetBrains Mono" font-size="8.5" fill="#8a6acc" text-anchor="middle">No chain traversal required</text>
+
+<rect x="724" y="480" width="308" height="64" rx="4" fill="#100820" stroke="#6a3a9a" stroke-width="1.5"/>
+<text x="878" y="504" font-family="Syne" font-size="12" fill="#c09af0" text-anchor="middle" font-weight="700">SELECTIVE DISCLOSURE (F7)</text>
+<text x="878" y="522" font-family="JetBrains Mono" font-size="8.5" fill="#8a6acc" text-anchor="middle">RangeProof[i,j]: Merkle sub-chain proof</text>
+<text x="878" y="537" font-family="JetBrains Mono" font-size="8.5" fill="#8a6acc" text-anchor="middle">GDPR: erasure-cert leaf replacement</text>
+
+<!-- Cross arrows -->
+<line x1="664" y1="487" x2="722" y2="487" stroke="#3dffa0" stroke-width="2" marker-end="url(#ag)"/>
+<text x="693" y="481" font-family="JetBrains Mono" font-size="8" fill="#3dffa0" text-anchor="middle">B_t</text>
+
+<line x1="722" y1="92" x2="674" y2="56" stroke="#a87eff" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#ap)"/>
+<text x="708" y="68" font-family="JetBrains Mono" font-size="8" fill="#a87eff" text-anchor="middle">genesis_cert</text>
+
+<line x1="722" y1="290" x2="360" y2="110" stroke="#ff4d6d" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#ar)"/>
+<text x="580" y="195" font-family="JetBrains Mono" font-size="8" fill="#ff4d6d" text-anchor="middle" transform="rotate(-26,580,195)">C_enc + k_reg</text>
+
+<!-- EPOCH CHAIN at bottom -->
+<text x="520" y="618" font-family="JetBrains Mono" font-size="10" fill="#4d9fff" text-anchor="middle" letter-spacing="2">RECURSIVE EPOCH CHAIN · TEMPORAL CONTINUITY</text>
+
+<!-- nodes -->
+<rect x="8" y="630" width="90" height="54" rx="4" fill="#0b0f1c" stroke="#6a3a9a" stroke-width="1.5"/>
+<text x="53" y="652" font-family="JetBrains Mono" font-size="9" fill="#c09af0" text-anchor="middle" font-weight="700">GENESIS</text>
+<text x="53" y="667" font-family="JetBrains Mono" font-size="8" fill="#8a6acc" text-anchor="middle">vk_0, GH_0</text>
+<text x="53" y="679" font-family="JetBrains Mono" font-size="8" fill="#8a6acc" text-anchor="middle">REG-signed</text>
+<line x1="98" y1="657" x2="138" y2="657" stroke="#4d9fff" stroke-width="1.5" marker-end="url(#a)"/>
+
+<rect x="138" y="630" width="90" height="54" rx="4" fill="#0b0f1c" stroke="#1c2a44" stroke-width="1.5"/>
+<text x="183" y="652" font-family="JetBrains Mono" font-size="10" fill="#7bbfff" text-anchor="middle" font-weight="700">t = 1</text>
+<text x="183" y="666" font-family="JetBrains Mono" font-size="8" fill="#4d9fff" text-anchor="middle">π₁,A₁,vk₁,GH₁</text>
+<line x1="228" y1="657" x2="268" y2="657" stroke="#4d9fff" stroke-width="1.5" marker-end="url(#a)"/>
+
+<rect x="268" y="630" width="90" height="54" rx="4" fill="#0b0f1c" stroke="#1c2a44" stroke-width="1.5"/>
+<text x="313" y="652" font-family="JetBrains Mono" font-size="10" fill="#7bbfff" text-anchor="middle" font-weight="700">t = 2</text>
+<text x="313" y="666" font-family="JetBrains Mono" font-size="8" fill="#4d9fff" text-anchor="middle">π₂,A₂,vk₂,GH₂</text>
+<line x1="358" y1="657" x2="398" y2="657" stroke="#4d9fff" stroke-width="1.5" marker-end="url(#a)"/>
+
+<rect x="398" y="630" width="90" height="54" rx="4" fill="#0b0f1c" stroke="#1c2a44" stroke-width="1.5"/>
+<text x="443" y="652" font-family="JetBrains Mono" font-size="10" fill="#7bbfff" text-anchor="middle" font-weight="700">t = 3</text>
+<text x="443" y="666" font-family="JetBrains Mono" font-size="8" fill="#4d9fff" text-anchor="middle">π₃,A₃,vk₃,GH₃</text>
+<line x1="488" y1="657" x2="528" y2="657" stroke="#4d9fff" stroke-width="1.5" marker-end="url(#a)"/>
+
+<text x="558" y="662" font-family="JetBrains Mono" font-size="20" fill="#4d9fff">···</text>
+
+<line x1="588" y1="657" x2="628" y2="657" stroke="#4d9fff" stroke-width="1.5" marker-end="url(#a)"/>
+
+<rect x="628" y="630" width="90" height="54" rx="4" fill="#071a0e" stroke="#3dffa0" stroke-width="2" filter="url(#gw)"/>
+<text x="673" y="652" font-family="JetBrains Mono" font-size="10" fill="#7affc0" text-anchor="middle" font-weight="700">t = N</text>
+<text x="673" y="666" font-family="JetBrains Mono" font-size="8" fill="#3dffa0" text-anchor="middle">B_N bundle</text>
+<text x="673" y="679" font-family="JetBrains Mono" font-size="8" fill="#2a7a4a" text-anchor="middle">O(1) verify</text>
+
+<!-- GH formula arc -->
+<path d="M 53 684 Q 363 730 673 684" stroke="#4d9fff" stroke-width="1" fill="none" stroke-dasharray="4,3"/>
+<text x="363" y="748" font-family="JetBrains Mono" font-size="9" fill="#3d5070" text-anchor="middle">GH_t = H(GH_{t-1} ‖ A_t ‖ π_t ‖ vk_t)  —  tamper-evident cryptographic chain</text>
+
+<!-- Legend -->
+<rect x="720" y="620" width="332" height="120" rx="4" fill="#0b0f1c" stroke="#1c2a44" stroke-width="1"/>
+<text x="886" y="642" font-family="JetBrains Mono" font-size="9" fill="#4d9fff" text-anchor="middle" letter-spacing="2">LEGEND</text>
+<line x1="740" y1="656" x2="778" y2="656" stroke="#4d9fff" stroke-width="2"/><text x="790" y="660" font-family="JetBrains Mono" font-size="9" fill="#3d5070">Data / Proof Flow</text>
+<line x1="740" y1="672" x2="778" y2="672" stroke="#a87eff" stroke-width="1.5" stroke-dasharray="5,3"/><text x="790" y="676" font-family="JetBrains Mono" font-size="9" fill="#3d5070">Regulator Interaction</text>
+<line x1="740" y1="688" x2="778" y2="688" stroke="#ff4d6d" stroke-width="1.5" stroke-dasharray="5,3"/><text x="790" y="692" font-family="JetBrains Mono" font-size="9" fill="#3d5070">Encrypted Policy Delivery</text>
+<line x1="740" y1="704" x2="778" y2="704" stroke="#3dffa0" stroke-width="2"/><text x="790" y="708" font-family="JetBrains Mono" font-size="9" fill="#3d5070">Bundle Upload to Regulator</text>
+<rect x="740" y="716" width="12" height="12" rx="2" fill="#071a0e" stroke="#2a5fa0"/><text x="790" y="726" font-family="JetBrains Mono" font-size="9" fill="#3d5070">TEE Secure Enclave Component</text>
+</svg>
+</div></body></html>
