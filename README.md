@@ -8,6 +8,23 @@
 
 ---
 
+## Demo Videos
+
+Two recordings live in [`demo/`](demo/).
+
+| File | Length | What it covers |
+|---|---|---|
+| [`ARAG-explained.mp4`](demo/ARAG-explained.mp4) | 4:17 | Plain-language explanation of the problem, why TEE / ZKP / ledgers each fall short on their own, the recursive-chaining idea, one epoch step by step, the seven attacks and the mechanism that answers each, Proof-of-Silence, and applications. Includes Figures 1–3. |
+| [`ARAG-full-demo.mp4`](demo/ARAG-full-demo.mp4) | 5:17 | The application running. Step-mode walk through all eight phases of one epoch, chain growth, O(1) verification, all seven attacks armed and detected one at a time, failure trace, Proof-of-Silence, Merkle range proof, and the three-institution panel. |
+
+Every hash, proof and detection shown in the demo recording is computed live in the
+browser by the code in this repository — no values are mocked or pre-rendered.
+
+[`demo/NARRATION-SCRIPT.md`](demo/NARRATION-SCRIPT.md) holds a section-by-section
+narration script for both videos, for anyone recording a voice-over.
+
+---
+
 ## What's New in v5
 
 ### 1. Compliance Timeline (Section: Timeline)
