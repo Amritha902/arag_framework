@@ -42,7 +42,9 @@ the application tier. That is the property the lab exists to demonstrate.
 Requires Docker (with Compose v2) and Node 18+ on the host. Nothing else.
 
 ```bash
+git clone https://github.com/Amritha902/cloud-network-lab.git
 cd cloud-network-lab
+
 ./scripts/lab.sh up        # build and start the four containers
 ./scripts/lab.sh test      # run the verification suite
 open http://127.0.0.1:8080 # the live dashboard
@@ -197,6 +199,7 @@ Through the gateway on `127.0.0.1:8080`:
 
 ```
 cloud-network-lab/
+├── .github/workflows/verify.yml   CI: stands the topology up and verifies it
 ├── docker-compose.yml          the topology: 3 networks, 4 services
 ├── Dockerfile                  one image, three roles
 ├── services/

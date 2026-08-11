@@ -1,0 +1,45 @@
+name: Verify
+
+# This workflow is for when cloud-network-lab is the root of its own
+# repository. GitHub only runs workflows from the repository root, so while
+# this directory lives inside a larger repo the file is inert and the
+# top-level .github/workflows/cloud-network-lab.yml runs instead.
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  verify:
+    name: Build the topology and verify it
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Show runner Docker version
+        run: |
+          docker --version
+          docker compose version
+
+      - name: Build and start the lab
+        run: docker compose up -d --build --wait
+
+      - name: Show container and network state
+        run: ./scripts/lab.sh status
+
+      - name: Run the verification suite
+        run: node tests/netlab-test.js
+
+      - name: Print the reachability matrix
+        run: ./scripts/lab.sh matrix
+
+      - name: Dump logs on failure
+        if: failure()
+        run: docker compose logs --no-color
+
+      - name: Tear down
+        if: always()
+        run: docker compose down -v --remove-orphans
