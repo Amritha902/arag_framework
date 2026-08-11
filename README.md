@@ -14,11 +14,17 @@ Two recordings live in [`demo/`](demo/).
 
 | File | Length | What it covers |
 |---|---|---|
-| [`ARAG-explained.mp4`](demo/ARAG-explained.mp4) | 4:17 | Plain-language explanation of the problem, why TEE / ZKP / ledgers each fall short on their own, the recursive-chaining idea, one epoch step by step, the seven attacks and the mechanism that answers each, Proof-of-Silence, and applications. Includes Figures 1–3. |
-| [`ARAG-full-demo.mp4`](demo/ARAG-full-demo.mp4) | 5:17 | The application running. Step-mode walk through all eight phases of one epoch, chain growth, O(1) verification, all seven attacks armed and detected one at a time, failure trace, Proof-of-Silence, Merkle range proof, and the three-institution panel. |
+| [`ARAG-explained.mp4`](demo/ARAG-explained.mp4) | 6:59 | Plain-language explanation of the problem, why TEE / ZKP / ledgers each fall short on their own, the recursive-chaining idea, one epoch step by step, the seven attacks and the mechanism that answers each, Proof-of-Silence, and applications. Includes Figures 1–3. |
+| [`ARAG-full-demo.mp4`](demo/ARAG-full-demo.mp4) | 5:18 | The application running. Step-mode walk through all eight phases of one epoch, chain growth, O(1) verification, all seven attacks armed and detected one at a time, failure trace, Proof-of-Silence, Merkle range proof, and the three-institution panel. |
+
+Both videos are narrated by Yugeshwaran P.
 
 Every hash, proof and detection shown in the demo recording is computed live in the
-browser by the code in this repository — no values are mocked or pre-rendered.
+browser by the code in this repository — no values are pre-rendered. Note that this
+is a working model of the protocol: the recursive chaining, the attack detection and
+the verification logic all execute for real, while the TEE attestation, the Groth16
+prover and the NIST/Bitcoin time oracle are simulated stand-ins for the real hardware
+and libraries (see the comments in `public/src/utils/crypto.js`).
 
 ### Recording the voice-over
 
