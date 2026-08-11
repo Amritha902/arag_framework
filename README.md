@@ -20,8 +20,16 @@ Two recordings live in [`demo/`](demo/).
 Every hash, proof and detection shown in the demo recording is computed live in the
 browser by the code in this repository — no values are mocked or pre-rendered.
 
-[`demo/NARRATION-SCRIPT.md`](demo/NARRATION-SCRIPT.md) holds a section-by-section
-narration script for both videos, for anyone recording a voice-over.
+### Recording the voice-over
+
+[`demo/NARRATION-SCRIPT.md`](demo/NARRATION-SCRIPT.md) is the full word-for-word
+narration for both videos, with recording instructions at the top.
+
+Record the two scripts as **two separate audio files** (`explainer.mp3` and
+`demo.mp3`), and **leave about two seconds of silence between each numbered
+section** — those gaps are what the sections get split on when the audio is
+synced to the video. Read at a natural pace; the video is re-timed to fit the
+narration rather than the other way round.
 
 ---
 
