@@ -1,139 +1,282 @@
-# ARAG v5 — Adaptive Recursive Attestation Graph
-## Full Demo Implementation
+<div align="center">
 
-**Patent-Pending · VIT Chennai · SENSE Department**  
-**Inventors:** Amritha S, Yugeshwaran P  
-**Supervisor:** Dr. Sritama Roy, Associate Professor  
-**Attorney:** Khurana & Khurana IP Attorneys  
+# ARAG
+
+### Adaptive Recursive Attestation Graph
+
+**Method and System for Generating Enclave-Attested Recursive Zero-Knowledge Proof Graphs for Privacy-Preserving Compliance Verification**
+
+[![Patent](https://img.shields.io/badge/status-patent%20pending-b5651d)](#patent)
+[![Institution](https://img.shields.io/badge/VIT%20Chennai-SENSE-1f6feb)](#credits)
+[![Node](https://img.shields.io/badge/node-%E2%89%A518-3c873a)](#running-it)
+[![Mechanisms](https://img.shields.io/badge/mechanisms-8-6f42c1)](#the-eight-mechanisms)
+[![Attacks](https://img.shields.io/badge/attacks%20defeated-7-c9302c)](#the-seven-attacks)
+
+**Amritha S** · **Yugeshwaran P**
+Supervisor: **Dr. Sritama Roy**, Associate Professor
+VIT Chennai — SENSE Department
+
+</div>
 
 ---
 
-## Demo Videos
+## In one sentence
 
-Two recordings live in [`demo/`](demo/).
+ARAG lets a bank prove it followed the rules — continuously, cheaply, and without
+revealing any of its data — and prove that it *never broke them*.
 
-| File | Length | What it covers |
+---
+
+## Contents
+
+- [The problem](#the-problem)
+- [Why existing tools aren't enough](#why-existing-tools-arent-enough)
+- [The idea](#the-idea)
+- [Demo videos](#demo-videos)
+- [The eight mechanisms](#the-eight-mechanisms)
+- [The seven attacks](#the-seven-attacks)
+- [Figures](#figures)
+- [Running it](#running-it)
+- [Architecture](#architecture)
+- [Scope — what is real and what is simulated](#scope--what-is-real-and-what-is-simulated)
+- [Credits](#credits)
+
+---
+
+## The problem
+
+Banks, crypto exchanges and hedge funds have to prove to a regulator that they
+followed the rules. Capital above 8%. Every customer screened against sanctions
+lists. Risk limits not breached.
+
+Today they prove it by **handing over the data**. Auditors go through customer
+records, positions and balances. Three things are wrong with that:
+
+| | |
+|---|---|
+| **It exposes data** | Proving you followed a rule shouldn't mean exposing your customers. |
+| **It's a snapshot** | An audit says what was true in March, not what was true last Tuesday. |
+| **It runs on trust** | Records can be edited before anyone looks at them. |
+
+---
+
+## Why existing tools aren't enough
+
+Three primitives come close. Each one leaves a gap.
+
+| Primitive | What it proves | The gap |
 |---|---|---|
-| [`ARAG-explained.mp4`](demo/ARAG-explained.mp4) | 6:59 | Plain-language explanation of the problem, why TEE / ZKP / ledgers each fall short on their own, the recursive-chaining idea, one epoch step by step, the seven attacks and the mechanism that answers each, Proof-of-Silence, and applications. Includes Figures 1–3. |
-| [`ARAG-full-demo.mp4`](demo/ARAG-full-demo.mp4) | 5:18 | The application running. Step-mode walk through all eight phases of one epoch, chain growth, O(1) verification, all seven attacks armed and detected one at a time, failure trace, Proof-of-Silence, Merkle range proof, and the three-institution panel. |
-
-Both videos are narrated by Yugeshwaran P.
-
-Every hash, proof and detection shown in the demo recording is computed live in the
-browser by the code in this repository — no values are pre-rendered. Note that this
-is a working model of the protocol: the recursive chaining, the attack detection and
-the verification logic all execute for real, while the TEE attestation, the Groth16
-prover and the NIST/Bitcoin time oracle are simulated stand-ins for the real hardware
-and libraries (see the comments in `public/src/utils/crypto.js`).
-
-### Recording the voice-over
-
-[`demo/NARRATION-SCRIPT.md`](demo/NARRATION-SCRIPT.md) is the full word-for-word
-narration for both videos, with recording instructions at the top.
-
-Record the two scripts as **two separate audio files** (`explainer.mp3` and
-`demo.mp3`), and **leave about two seconds of silence between each numbered
-section** — those gaps are what the sections get split on when the audio is
-synced to the video. Read at a natural pace; the video is re-timed to fit the
-narration rather than the other way round.
+| **TEE** — Intel SGX, AMD SEV | Code ran untampered inside a sealed enclave | Proves *an* enclave ran, not **which program** was inside it |
+| **ZKP** — Groth16 | A statement is true, revealing nothing | Doesn't prove **real hardware, on real data** produced it |
+| **Ledgers** — append-only | A record existed and wasn't altered | Proves what **was written**, never what was **left out** |
 
 ---
 
-## What's New in v5
+## The idea
 
-### 1. Compliance Timeline (Section: Timeline)
-Visual epoch-by-epoch compliance window. Shows:
-- Sliding window [E_t-k … E_t] with ✓/✗ per epoch box
-- COMPLIANT / VIOLATION status with exact epoch references
-- GH_t chain evolution visible directly
-- Auto-updates after every epoch
+Time is split into **epochs**. In each epoch the institution's enclave checks the
+rule against encrypted data, produces a zero-knowledge proof, and has the hardware
+sign exactly what it ran. Then that result is hashed together with the *previous*
+epoch's hash:
 
-### 2. Multi-Institution Panel (Section: Multi-Inst)
-Three independent institutions under one regulator running simultaneously:
-- Global Investment Bank (Basel III, Intel SGX)
-- Crypto Exchange Ltd. (AML Sanctions, AMD SEV)
-- Meridian Hedge Fund (VaR Limit, ARM TrustZone)
-- Per-institution attack toggles (arm Time Rollback, Circuit Sub., Fake Attest., Tamper Hash on any specific institution)
-- Shared regulator registry showing all institutions
-- "Run Epoch Round" or "Run 5 Rounds" batch mode
+```
+GH_t = H( GH_{t-1} ‖ A_t ‖ π_t ‖ vk_t )
+```
 
-### 3. Failure Trace Analyzer (Section: Failure Trace)
-Field-level security diagnostics — the auditor's tool:
-- AGKD recomputed independently from bundle
-- GH_t recomputed from scratch
-- C_hash and τ_t compared field-by-field
-- Root cause mapping: each failed field → exact attack vector
-- Security implication text per failure type
-- "Load Attack Sample" button generates a pre-built circuit-substitution attack bundle
+Every epoch is welded onto the one before it. Change any epoch in the past and
+every hash after it stops matching — history becomes un-rewritable.
 
-### 4. Step Execution Mode
-Toggle "Step Mode" in the Demo panel to walk epoch generation phase by phase:
-- 8 phases: Oracle → Circuit → Attest → ZKP → AGKD → Graph Hash → DMS → Bundle
-- Visual step tracker with F-label tags
-- "Next Step" / "Complete All" controls
-- Each step logs what was computed
+The verification key is chained the same way, and it is derived **from the
+hardware attestation itself**:
 
-### 5. New Attack: Tamper Previous Hash (7th attack vector)
-Directly corrupts GH_prev before computing GH_t — simulates a history-rewriting attack:
-- Demonstrates the core recursive tamper-evidence property (F1)
-- Breaking one epoch's hash propagates to all future hashes
-- Chain integrity check catches it immediately
+```
+vk_t = H( vk_{t-1} ‖ A_t.quote ‖ Policy_t )
+```
 
-### 6. Epoch Metrics Chart
-Live canvas chart: verify time (ms) line + pass/fail bars per epoch.
-
-### 7. Auto Demo Mode (v4 feature, retained)
-8-step scripted walkthrough: Genesis → 3 clean epochs → Time Rollback (blocked) → Circuit Sub. (blocked) → recovery.
+A forged attestation therefore yields a broken key, and a broken key breaks every
+epoch that follows. This is **AGKD** — attestation-gated key derivation.
 
 ---
 
-## Setup
+## Demo videos
+
+Both videos live in [`demo/`](demo/) and play directly in the browser. Narrated by
+Yugeshwaran P.
+
+| Video | Length | Covers |
+|---|---|---|
+| **[Explainer](demo/ARAG-explained.mp4)** | 6:59 | The problem, why TEE / ZKP / ledgers each fall short, the recursive-chaining idea, one epoch step by step, the seven attacks and their answers, Proof-of-Silence, applications. Includes all three figures. |
+| **[Full demo](demo/ARAG-full-demo.mp4)** | 5:18 | The application running: step-mode walk through all eight phases of one epoch, chain growth, O(1) verification, all seven attacks armed and detected one at a time, failure trace, Proof-of-Silence, Merkle range proof, three-institution panel. |
+
+Watch the explainer first. Every hash, proof and detection in the demo is computed
+live in the browser — nothing is pre-rendered. See
+[Scope](#scope--what-is-real-and-what-is-simulated) for exactly what executes for
+real.
+
+[`demo/NARRATION-SCRIPT.md`](demo/NARRATION-SCRIPT.md) holds the full word-for-word
+narration, if it ever needs re-recording.
+
+---
+
+## The eight mechanisms
+
+Composing a TEE, a ZKP and a recursive chain creates attack surface that none of
+the three has to defend against alone. Each mechanism closes one such gap.
+
+| | Mechanism | Group | What it does |
+|---|---|---|---|
+| **F1** | Base ARAG architecture | Trust initialization | Attestation, proof and derived key folded into one recursive graph hash |
+| **F2a** | Regulator-witnessed genesis | Trust initialization | A chain cannot begin without the regulator's co-signature on `vk_0` |
+| **F2b** | Regulator-anchored epoch registry | Trust initialization | Append-only, so a missing epoch is itself proof of deletion |
+| **F3** | Verifiable time oracle | Temporal integrity | NIST Beacon + Bitcoin block hash anchor every attestation to real time |
+| **F4** | Circuit-level attestation | Execution authenticity | `C_hash = H(circuit)` binds the *program*, not just the enclave |
+| **F5** | Blind policy execution | Execution authenticity | The institution proves correct execution of a circuit it cannot read |
+| **F6** | Dead man's switch | Continuous compliance | Forced shutdown destroys a sealed nonce — silence becomes evidence |
+| **F8** | **Proof-of-Silence** | Continuous compliance | Proves a violation **did not occur**, across every sub-epoch. No prior art. |
+
+> **Remove any one and the system is exploitable.** That interdependence is the
+> core of the claim.
+
+### Proof-of-Silence
+
+Every system in the literature proves something *happened* — a transaction, a
+block, a signature. ARAG proves something **did not happen**: no violation
+occurred at any point in the window, across *every* sub-epoch in it. Not sampled.
+All of them.
+
+```
+State_k == COMPLIANT  AND  k == Δt/δ  AND  all sub-results TRUE
+```
+
+---
+
+## The seven attacks
+
+Every one is implemented and can be armed live in the Attacks panel.
+
+| Attack | Countered by | How it's detected |
+|---|---|---|
+| Fraudulent genesis | `F2a` | `vk_0` not co-signed by the regulator |
+| Time rollback | `F3` | `τ_t` ≠ NIST Beacon round + BTC block |
+| Circuit substitution | `F4` | `A_t.C_hash` ≠ `H(registered_circuit)` |
+| Missing epoch / gap | `F2b` | Gap in the append-only registry |
+| Fake attestation | `F1` / `F4` | MRENCLAVE not in the trusted registry |
+| Dead man's switch abort | `F6` | DMS commitment unprovable |
+| Tamper previous hash | `F1` | `GH_t` recomputation mismatch |
+
+---
+
+## Figures
+
+<div align="center">
+
+### Figure 1 — System architecture
+Institution boundary, regulator boundary, and the recursive epoch chain.
+
+<img src="docs/figures/fig1-system-architecture.png" alt="ARAG system architecture" width="900">
+
+### Figure 2 — AGKD and the recursive graph hash
+How one epoch links to the next.
+
+<img src="docs/figures/fig2-agkd-recursive-hash.png" alt="AGKD block diagram" width="900">
+
+### Figure 3 — Proof-of-Silence and Merkle range proofs
+The sub-epoch state machine, and auditing an arbitrary range.
+
+<img src="docs/figures/fig3-silence-merkle.png" alt="Proof-of-Silence and Merkle diagram" width="900">
+
+</div>
+
+Interactive versions: [`fig1`](public/diagrams/fig1.html) ·
+[`fig2`](public/diagrams/fig2.html) · [`fig3`](public/diagrams/fig3.html)
+
+---
+
+## Running it
 
 ```bash
-cd ARAG_v5
 npm install
 npm start
 # open http://localhost:3000
 ```
 
-No build step. No bundler. Everything runs natively in the browser.
+No build step, no bundler. Everything runs natively in the browser.
+
+### What to click
+
+| Section | Try this |
+|---|---|
+| **Demo** | Turn on **Step Mode**, hit *Generate Epoch*, walk the eight phases |
+| **Attacks** | Arm any attack, hit *Generate Epoch*, watch the field-level detection |
+| **Verify** | *Load Sample* → *Verify Bundle* — nine checks, constant time |
+| **Failure Trace** | *Load Attack Sample* → *Analyze Bundle* for the auditor's view |
+| **Multi-Inst** | *Initialize*, run rounds, then arm an attack on one institution only |
+| **Silence** | Generate a Proof-of-Silence over the epoch window |
+
+Or press **Auto Demo** on the landing page for a scripted walkthrough.
 
 ---
 
 ## Architecture
 
 ```
-ARAG_v5/
-├── server.js                   ← Express static server
-├── package.json
-├── public/
-│   ├── index.html              ← Full app (12 sections)
-│   ├── diagrams/
-│   │   ├── fig1.html           ← System Architecture SVG
-│   │   ├── fig2.html           ← AGKD Block Diagram SVG
-│   │   └── fig3.html           ← Proof-of-Silence + Merkle SVG
-│   └── src/
-│       ├── utils/crypto.js     ← SHA-256, ZKP sim, TEE attest, Merkle, DMS
-│       ├── utils/engine.js     ← ARAG state machine (all 7 attacks)
-│       ├── main.js             ← UI + all v4/v5 features
-│       └── styles/main.css     ← Complete stylesheet
+├── server.js                     Express static server
+├── demo/                         Narrated videos + narration script
+├── docs/figures/                 Rendered patent figures
+└── public/
+    ├── index.html                The app — 12 sections
+    ├── diagrams/
+    │   ├── fig1.html             System architecture
+    │   ├── fig2.html             AGKD block diagram
+    │   └── fig3.html             Proof-of-Silence + Merkle
+    └── src/
+        ├── utils/crypto.js       SHA-256, ZKP sim, TEE attest, Merkle, DMS
+        ├── utils/engine.js       ARAG state machine, all 7 attacks
+        ├── main.js               UI and all v5 features
+        └── styles/main.css       Stylesheet
 ```
 
 ---
 
-## All 7 Attack Vectors
+## Scope — what is real and what is simulated
 
-| Attack | Mechanism Countered | Detection Method |
-|---|---|---|
-| Fraudulent Genesis | F2a | vk_0 not co-signed by regulator |
-| Time Rollback | F3 | τ_t ≠ NIST Beacon + BTC block |
-| Circuit Substitution | F4 | A_t.C_hash ≠ H(real_circuit) |
-| Missing Epoch / Gap | F2b | Append-only registry gap |
-| Fake Attestation | F1/F4 | MRENCLAVE not in trusted registry |
-| Dead Man's Switch Abort | F6 | DMS commitment unprovable |
-| Tamper Previous Hash | F1 | GH_t recomputation mismatch |
+This is a **working model of the protocol**, not a production deployment. Being
+precise about the boundary:
+
+| Component | Status |
+|---|---|
+| SHA-256 | **Real** — full implementation in `crypto.js` |
+| Recursive graph hash `GH_t` | **Real** — genuinely chained and recomputed on verify |
+| AGKD key derivation | **Real** — re-derived independently by the verifier |
+| Merkle tree + range proofs | **Real** |
+| Attack detection, all seven | **Real** — every check recomputes from the bundle |
+| Proof-of-Silence state machine | **Real** |
+| Randomness | **Real** — `crypto.getRandomValues` |
+| TEE attestation quote | *Simulated* — no SGX/SEV hardware is involved |
+| Groth16 prover | *Simulated* — proof fields are hashes; 192 B is the real-world size |
+| NIST Beacon + Bitcoin oracle | *Simulated* — derived deterministically, no network calls |
+
+The cryptographic **structure** of the protocol — the chaining, the bindings, the
+detection logic — executes exactly as specified. The three simulated components are
+stand-ins for hardware and libraries that a production implementation would supply.
+The source comments in [`public/src/utils/crypto.js`](public/src/utils/crypto.js)
+mark each one.
 
 ---
 
-*CONFIDENTIAL — ATTORNEY-CLIENT PRIVILEGED WORK PRODUCT*  
-*Khurana & Khurana IP Attorneys · March 2026*
+## Patent
+
+Patent pending. Filed via **Khurana & Khurana IP Attorneys**.
+
+## Credits
+
+**Inventors** — Amritha S, Yugeshwaran P
+**Supervisor** — Dr. Sritama Roy, Associate Professor
+**Institution** — VIT Chennai, SENSE Department
+
+---
+
+<div align="center">
+<sub><b>CONFIDENTIAL — ATTORNEY-CLIENT PRIVILEGED WORK PRODUCT</b><br>
+Khurana &amp; Khurana IP Attorneys</sub>
+</div>
