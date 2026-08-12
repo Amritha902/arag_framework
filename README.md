@@ -6,24 +6,19 @@
 
 **Method and System for Generating Enclave-Attested Recursive Zero-Knowledge Proof Graphs for Privacy-Preserving Compliance Verification**
 
-[![Patent](https://img.shields.io/badge/status-patent%20pending-b5651d)](#patent)
+[![Status](https://img.shields.io/badge/status-patent%20pending-b5651d)](#patent)
 [![Institution](https://img.shields.io/badge/VIT%20Chennai-SENSE-1f6feb)](#credits)
-[![Node](https://img.shields.io/badge/node-%E2%89%A518-3c873a)](#running-it)
-[![Mechanisms](https://img.shields.io/badge/mechanisms-8-6f42c1)](#the-eight-mechanisms)
-[![Attacks](https://img.shields.io/badge/attacks%20defeated-7-c9302c)](#the-seven-attacks)
 
-**Amritha S** · **Yugeshwaran P**
-Supervisor: **Dr. Sritama Roy**, Associate Professor
+**Amritha S** &nbsp;·&nbsp; **Yugeshwaran P**<br>
+Supervisor: **Dr. Sritama Roy**, Associate Professor<br>
 VIT Chennai — SENSE Department
 
 </div>
 
 ---
 
-## In one sentence
-
-ARAG lets a bank prove it followed the rules — continuously, cheaply, and without
-revealing any of its data — and prove that it *never broke them*.
+ARAG lets a bank prove it followed the rules continuously, without revealing any of
+its data, and prove that it never broke them at any point in the period covered.
 
 ---
 
@@ -132,17 +127,17 @@ the three has to defend against alone. Each mechanism closes one such gap.
 | **F4** | Circuit-level attestation | Execution authenticity | `C_hash = H(circuit)` binds the *program*, not just the enclave |
 | **F5** | Blind policy execution | Execution authenticity | The institution proves correct execution of a circuit it cannot read |
 | **F6** | Dead man's switch | Continuous compliance | Forced shutdown destroys a sealed nonce — silence becomes evidence |
-| **F8** | **Proof-of-Silence** | Continuous compliance | Proves a violation **did not occur**, across every sub-epoch. No prior art. |
+| **F8** | **Proof-of-Silence** | Continuous compliance | Proves a violation did not occur, across every sub-epoch in the window |
 
-> **Remove any one and the system is exploitable.** That interdependence is the
-> core of the claim.
+Removing any one of these leaves the composed system exploitable; that
+interdependence is the substance of the claim.
 
 ### Proof-of-Silence
 
 Every system in the literature proves something *happened* — a transaction, a
 block, a signature. ARAG proves something **did not happen**: no violation
-occurred at any point in the window, across *every* sub-epoch in it. Not sampled.
-All of them.
+occurred at any point in the window, across every sub-epoch in it, rather than at
+sampled points.
 
 ```
 State_k == COMPLIANT  AND  k == Δt/δ  AND  all sub-results TRUE
